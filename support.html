@@ -55,13 +55,14 @@
                 <h1>Get Help & Support</h1>
 
                 <p class="intro-text">
-                    We're here to help! If you have questions about your coaching program, technical issues, or general inquiries, please reach out to us.
+                    We're here to help! If you have questions about your coaching program, technical issues, or general
+                    inquiries, please reach out to us.
                 </p>
 
                 <!-- SUPPORT METHODS -->
                 <div class="support-methods">
                     <h2>How to Get Support:</h2>
-                    
+
                     <div class="support-item">
                         <h3>Email</h3>
                         <p><strong>support@rewire180.com</strong></p>
@@ -85,7 +86,8 @@
                     <div class="issue">
                         <h3>App Access Problems</h3>
                         <ul>
-                            <li>If you can't log into the coaching app, reset your password using the "Forgot Password" option</li>
+                            <li>If you can't log into the coaching app, reset your password using the "Forgot Password"
+                                option</li>
                             <li>Clear your browser cache and try again</li>
                             <li>Contact support if issues persist</li>
                         </ul>
@@ -129,33 +131,95 @@
                     </div>
                 </section>
 
-                <!-- CONTACT FORM -->
-                <section class="contact-form-section">
-                    <h2>Contact Support Form</h2>
-                    <form class="support-form">
-                        <div class="form-group">
-                            <label for="name">Name *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
+                <!-- CONTACT INFO -->
+                <section class="contact-info-section">
+                    <h2>Get In Touch</h2>
+                    <p class="contact-intro">Have questions? Reach out to us directly:</p>
 
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
+                    <div class="contact-cards">
+                        <a href="mailto:support@rewire180.com" class="contact-card">
+                            <div class="contact-icon">📧</div>
+                            <h3>Email Us</h3>
+                            <p>support@rewire180.com</p>
+                        </a>
 
-                        <div class="form-group">
-                            <label for="subject">Subject *</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" rows="6" required></textarea>
-                        </div>
-
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
+                        <a href="tel:+919876543210" class="contact-card">
+                            <div class="contact-icon">📱</div>
+                            <h3>Call Us</h3>
+                            <p>+91 98765 43210</p>
+                        </a>
+                    </div>
                 </section>
+
+                <style>
+                    .contact-info-section {
+                        margin-top: 3rem;
+                        text-align: center;
+                    }
+
+                    .contact-info-section h2 {
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .contact-intro {
+                        color: rgba(255, 255, 255, 0.7);
+                        margin-bottom: 2rem;
+                    }
+
+                    .contact-cards {
+                        display: flex;
+                        gap: 2rem;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                    }
+
+                    .contact-card {
+                        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+                        border: 1px solid rgba(255, 255, 255, 0.15);
+                        border-radius: 16px;
+                        padding: 2rem 3rem;
+                        text-decoration: none;
+                        color: inherit;
+                        transition: all 0.3s ease;
+                        min-width: 220px;
+                    }
+
+                    .contact-card:hover {
+                        transform: translateY(-5px);
+                        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+                        border-color: rgba(255, 255, 255, 0.3);
+                        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+                    }
+
+                    .contact-icon {
+                        font-size: 2.5rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    .contact-card h3 {
+                        margin: 0 0 0.5rem 0;
+                        font-size: 1.2rem;
+                        color: #fff;
+                    }
+
+                    .contact-card p {
+                        margin: 0;
+                        color: rgba(255, 255, 255, 0.8);
+                        font-size: 1rem;
+                    }
+
+                    @media (max-width: 600px) {
+                        .contact-cards {
+                            flex-direction: column;
+                            align-items: center;
+                        }
+
+                        .contact-card {
+                            width: 100%;
+                            max-width: 300px;
+                        }
+                    }
+                </style>
 
             </div>
         </div>
@@ -181,7 +245,7 @@
             </div>
 
             <!-- CENTER -->
-             <div class="footer-center">
+            <div class="footer-center">
                 <a href="support.html">Support</a>
                 <a href="acceptable-use-policy.html">Acceptable Use Policy</a>
                 <a href="privacy-policy.html" class="active">Privacy Policy</a>
@@ -200,7 +264,8 @@
         <!-- BOTTOM -->
         <div class="footer-bottom">
             <span>MADE BY</span>
-            <strong><a href="https://www.instagram.com/thewasiim/" target="_blank" rel="noopener noreferrer" aria-label="Open TheWasiim on Instagram">TheWasiim</a></strong>
+            <strong><a href="https://www.instagram.com/thewasiim/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Open TheWasiim on Instagram">TheWasiim</a></strong>
         </div>
     </footer>
 
