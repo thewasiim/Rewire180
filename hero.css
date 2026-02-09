@@ -5,9 +5,19 @@
   font-family: Inter, system-ui, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 78px;
+  /* Matches your .main-navbar height exactly */
+}
+
 body {
   background: #050505;
   color: #fff;
+}
+
+#home {
+  scroll-margin-top: 78px;
 }
 
 /* NAVBAR */
@@ -178,12 +188,22 @@ body {
 }
 
 /* EYEBROW */
-.hero-eyebrow {
+.hero-eyebrows {
   font-size: 13px;
   letter-spacing: 0.22em;
   color: #9aa3b2;
   margin-bottom: 10px;
   text-transform: uppercase;
+  /* text-align: center; */
+}
+
+.eyebrows {
+  display: block;
+  font-size: 13px;
+  letter-spacing: .18em;
+  color: #9a9a9a;
+  margin-bottom: 16px;
+  text-align: center;
 }
 
 /* TITLE */
@@ -2437,50 +2457,52 @@ body {
   .retention-row .data-type {
     margin-bottom: 8px;
   }
-}/* ================= VIDEO REVIEWS SLIDER CUSTOMIZATION ================= */
+}
+
+/* ================= VIDEO REVIEWS SLIDER CUSTOMIZATION ================= */
 
 /* Override the default grid on the container because we moved the grid logic to swiper-wrapper */
 .reviews-grid.video-reviews-swiper {
-    display: block;
-    overflow: hidden;
-    /* Needed for Swiper */
-    padding-bottom: 40px;
-    /* Space for pagination */
-    position: relative;
+  display: block;
+  overflow: hidden;
+  /* Needed for Swiper */
+  padding-bottom: 40px;
+  /* Space for pagination */
+  position: relative;
 }
 
 /* When Swiper is NOT initialized, the wrapper should act as the grid */
 .video-reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
-    width: 100%;
-    box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Responsive Grid Fallback (matching .reviews-grid media queries) */
 @media (max-width: 1100px) {
-    .video-reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .video-reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 600px) {
-    .video-reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
-        grid-template-columns: 1fr;
-    }
+  .video-reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Pagination Styling */
 .video-reviews-pagination {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    z-index: 10;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
 }
 
 /* Reuse existing pagination bullet styles since they are global in hero.css */
