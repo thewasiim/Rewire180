@@ -192,6 +192,7 @@ body {
   line-height: 1.05;
   font-weight: 700;
   margin-bottom: 26px;
+  margin-top: 15px;
 }
 
 /* SUBTITLE */
@@ -206,7 +207,7 @@ body {
 
 /* CTA */
 .hero-cta {
-  margin-top: 35px;
+  margin-top: 10px;
   /* margin-bottom: 30px; */
 }
 
@@ -275,11 +276,11 @@ body {
 
 @media(max-width: 768px) {
   .hero-title {
-    font-size: 40px;
+    font-size: 32px;
   }
 
   .hero-subtitle {
-    font-size: 15px;
+    font-size: 13px;
   }
 
   /* Match .video-wrapper behavior */
@@ -489,7 +490,7 @@ body {
 
 .reviews-ss-header {
   text-align: center;
-  margin-bottom: 72px;
+  margin-bottom: 50px;
 }
 
 .reviews-ss-header .eyebrow {
@@ -500,7 +501,7 @@ body {
 }
 
 .reviews-ss-header h2 {
-  font-size: 44px;
+  font-size: 35px;
   line-height: 1.15;
   font-weight: 700;
 }
@@ -564,7 +565,7 @@ body {
 
 /* REVIEWS SECTION */
 .reviews-section {
-  padding: 50px 0;
+  padding: 25px 0;
   background: radial-gradient(circle at top, #0e0e0e, #050505);
 }
 
@@ -577,7 +578,7 @@ body {
 /* HEADER */
 .reviews-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 35px;
 }
 
 .eyebrow {
@@ -709,7 +710,7 @@ body {
   font-size: 16px;
   line-height: 1.7;
   color: #cfcfcf;
-  margin-bottom: 36px;
+  margin-bottom: 15px;
 }
 
 /* ================= PRICE BLOCK ================= */
@@ -773,11 +774,11 @@ body {
 
 /* ================= PROGRAM TITLE ================= */
 .program-title {
-  margin: 40px 0 30px;
+  margin: 30px 0 30px;
 }
 
 .program-title h3 {
-  font-size: 28px;
+  font-size: 25px;
   font-weight: 700;
 }
 
@@ -804,7 +805,7 @@ body {
 .option {
   background: rgba(255, 255, 255, 0.04);
   border-radius: 18px;
-  padding: 28px;
+  padding: 20px;
 }
 
 .option h4 {
@@ -847,7 +848,7 @@ body {
   display: inline-block;
   padding: 14px 34px;
   border-radius: 10px;
-  background: #c0392b;
+  background: #2a6df4;
   color: #fff;
   font-weight: 600;
   font-size: 16px;
@@ -874,11 +875,11 @@ body {
 /* ================= RESPONSIVE ================= */
 @media(max-width:768px) {
   .pricing-box {
-    padding: 50px 28px;
+    padding: 25px 20px;
   }
 
   .pricing-title {
-    font-size: 34px;
+    font-size: 26px;
   }
 
   .pricing-options {
@@ -919,7 +920,7 @@ body {
   .pricing-sections-wrapper {
     flex-direction: column;
     align-items: center;
-    padding: 60px 20px;
+    padding: 20px 20px;
   }
 
   .pricing-sections-wrapper .pricing-section {
@@ -950,8 +951,8 @@ body {
   justify-content: center;
   gap: 30px;
   flex-wrap: wrap;
-  padding: 25px 0;
-  margin-bottom: 25px;
+  padding: 0px 0;
+  /* margin-bottom: 25px; */
 }
 
 #vip-pricing .price-block p {
@@ -2436,4 +2437,51 @@ body {
   .retention-row .data-type {
     margin-bottom: 8px;
   }
+}/* ================= VIDEO REVIEWS SLIDER CUSTOMIZATION ================= */
+
+/* Override the default grid on the container because we moved the grid logic to swiper-wrapper */
+.reviews-grid.video-reviews-swiper {
+    display: block;
+    overflow: hidden;
+    /* Needed for Swiper */
+    padding-bottom: 40px;
+    /* Space for pagination */
+    position: relative;
 }
+
+/* When Swiper is NOT initialized, the wrapper should act as the grid */
+.video-reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Responsive Grid Fallback (matching .reviews-grid media queries) */
+@media (max-width: 1100px) {
+    .video-reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .video-reviews-swiper:not(.swiper-initialized) .swiper-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Pagination Styling */
+.video-reviews-pagination {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* Reuse existing pagination bullet styles since they are global in hero.css */
+/* .swiper-pagination-bullet */

@@ -115,7 +115,7 @@
 
         </div>
     </section>
-    <section class="reviews-section">
+    <section class="reviews-section" id="reviews-section-video">
         <div class="reviews-container">
 
             <div class="reviews-header">
@@ -123,62 +123,68 @@
                 <h2>Take a look at what my clients are saying</h2>
             </div>
 
-            <div class="reviews-grid">
+            <div class="reviews-grid video-reviews-swiper">
+                <div class="swiper-wrapper">
 
-                <!-- REVIEW 1 -->
-                <div class="review-stack">
-                    <div class="review-card text-card">
-                        <p>
-                            “I was burnt out and had failed at online coaching before, but James’
-                            course helped me get set up fast and sign my first four clients.
-                            Best investment I’ve made.”
-                        </p>
+                    <!-- REVIEW 1 -->
+                    <div class="swiper-slide review-stack">
+                        <div class="review-card text-card">
+                            <p>
+                                “I was burnt out and had failed at online coaching before, but James’
+                                course helped me get set up fast and sign my first four clients.
+                                Best investment I’ve made.”
+                            </p>
+                        </div>
+                        <div class="review-card video-card">
+                            <video src="reviews/v1.mp4" controls preload="metadata"></video>
+                        </div>
                     </div>
-                    <div class="review-card video-card">
-                        <video src="reviews/v1.mp4" controls preload="metadata"></video>
+
+                    <!-- REVIEW 2 -->
+                    <div class="swiper-slide review-stack">
+                        <div class="review-card text-card">
+                            <p>
+                                “Before joining, I was overwhelmed and my business was stuck.
+                                The mentorship gave me clarity, direction, and systems that
+                                helped my revenue grow massively.”
+                            </p>
+                        </div>
+                        <div class="review-card video-card">
+                            <video src="reviews/v2.mp4" controls preload="metadata"></video>
+                        </div>
                     </div>
+
+                    <!-- REVIEW 3 -->
+                    <div class="swiper-slide review-stack">
+                        <div class="review-card text-card">
+                            <p>
+                                “Joining the mentorship was one of the best decisions I made.
+                                My followers grew fast and my systems finally made sense.”
+                            </p>
+                        </div>
+                        <div class="review-card video-card">
+                            <video src="reviews/v3.mp4" controls preload="metadata"></video>
+                        </div>
+                    </div>
+
+                    <!-- REVIEW 4 -->
+                    <div class="swiper-slide review-stack">
+                        <div class="review-card text-card">
+                            <p>
+                                “Clear steps, real systems, and real results.
+                                This program helped me stop guessing and start executing.”
+                            </p>
+                        </div>
+                        <div class="review-card video-card">
+                            <video src="reviews/v4.mp4" controls preload="metadata"></video>
+                        </div>
+                    </div>
+
                 </div>
-
-                <!-- REVIEW 2 -->
-                <div class="review-stack">
-                    <div class="review-card text-card">
-                        <p>
-                            “Before joining, I was overwhelmed and my business was stuck.
-                            The mentorship gave me clarity, direction, and systems that
-                            helped my revenue grow massively.”
-                        </p>
-                    </div>
-                    <div class="review-card video-card">
-                        <video src="reviews/v2.mp4" controls preload="metadata"></video>
-                    </div>
-                </div>
-
-                <!-- REVIEW 3 -->
-                <div class="review-stack">
-                    <div class="review-card text-card">
-                        <p>
-                            “Joining the mentorship was one of the best decisions I made.
-                            My followers grew fast and my systems finally made sense.”
-                        </p>
-                    </div>
-                    <div class="review-card video-card">
-                        <video src="reviews/v3.mp4" controls preload="metadata"></video>
-                    </div>
-                </div>
-
-                <!-- REVIEW 4 -->
-                <div class="review-stack">
-                    <div class="review-card text-card">
-                        <p>
-                            “Clear steps, real systems, and real results.
-                            This program helped me stop guessing and start executing.”
-                        </p>
-                    </div>
-                    <div class="review-card video-card">
-                        <video src="reviews/v4.mp4" controls preload="metadata"></video>
-                    </div>
-                </div>
-
+                <!-- Swiper navigation & pagination -->
+                <div class="video-reviews-pagination"></div>
+                <!-- <div class="video-reviews-prev"></div> -->
+                <!-- <div class="video-reviews-next"></div> -->
             </div>
         </div>
     </section>
@@ -194,11 +200,16 @@
 
             <div class="reviews-ss-grid swiper reviews-swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide ss-card"><img src="reviews/r1.png" alt="Review 1"></div>
-                    <div class="swiper-slide ss-card"><img src="reviews/r2.png" alt="Review 2"></div>
-                    <div class="swiper-slide ss-card"><img src="reviews/r3.png" alt="Review 3"></div>
-                    <div class="swiper-slide ss-card"><img src="reviews/r4.png" alt="Review 4"></div>
-                    <div class="swiper-slide ss-card"><img src="reviews/r5.png" alt="Review 5"></div>
+                    <div class="swiper-slide ss-card"><img src="Gemini_Generated_Image_m9l67wm9l67wm9l6.png"
+                            alt="Review 1"></div>
+                    <div class="swiper-slide ss-card"><img src="Gemini_Generated_Image_m9l67wm9l67wm9l6.png"
+                            alt="Review 2"></div>
+                    <div class="swiper-slide ss-card"><img src="Gemini_Generated_Image_m9l67wm9l67wm9l6.png"
+                            alt="Review 3"></div>
+                    <div class="swiper-slide ss-card"><img src="Gemini_Generated_Image_m9l67wm9l67wm9l6.png"
+                            alt="Review 4"></div>
+                    <div class="swiper-slide ss-card"><img src="Gemini_Generated_Image_m9l67wm9l67wm9l6.png"
+                            alt="Review 5"></div>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -231,10 +242,10 @@
                     </ul>
                 </div>
 
-                <p class="pricing-note">
+                <!-- <p class="pricing-note">
                     This program requires honesty, effort, and willingness to challenge your
                     <strong>mindset</strong>. Excuses and quitting aren’t allowed.
-                </p>
+                </p> -->
 
                 <div class="program-title">
                     <h3><span>180-Day</span> Private Coaching</h3>
@@ -351,33 +362,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const swiper = new Swiper('.reviews-swiper', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                loop: true,
-                autoplay: {
-                    delay: 3000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                breakpoints: {
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                    },
-                },
-            });
-        });
-    </script>
+    <script src="scripts.js" defer></script>
     <script src="navbar.js" defer></script>
 
 </body>
