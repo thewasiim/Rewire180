@@ -1,13 +1,16 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     // Existing Reviews Screenshot Swiper
     const swiper = new Swiper('.reviews-swiper', {
         slidesPerView: 1,
         spaceBetween: 20,
         loop: true,
+        speed: 800, // ✅ smooth transition
+        effect: 'slide', // ✅ slide effect
+        grabCursor: true, // ✅ grab cursor
         autoplay: {
             delay: 3000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true, // ✅ pause on hover
         },
         pagination: {
             el: '.swiper-pagination',
@@ -27,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Video Reviews Swiper - Conditional slider logic
     const videoReviewsContainer = document.querySelector('.video-reviews-swiper');
-    // Select all slides (review-stack elements)
     const videoReviewSlides = videoReviewsContainer ? videoReviewsContainer.querySelectorAll('.review-stack') : [];
     const totalSlides = videoReviewSlides.length;
     let videoSwiperInstance = null;
@@ -35,31 +37,32 @@ document.addEventListener('DOMContentLoaded', function () {
     function initVideoReviewsSwiper() {
         if (!videoReviewsContainer) return;
 
-        const isMobile = window.innerWidth <= 768; // Mobile breakpoint
+        const isMobile = window.innerWidth <= 768;
         const slidesPerViewDesktop = 4;
         const slidesPerViewMobile = 2;
 
-        // Logic:
-        // Desktop: Slider active if > 4 items
-        // Mobile: Slider active if > 2 items
         const needsSlider = isMobile ? totalSlides > slidesPerViewMobile : totalSlides > slidesPerViewDesktop;
 
         if (needsSlider) {
-            // We need a slider
             if (!videoSwiperInstance) {
                 videoReviewsContainer.classList.add('swiper', 'swiper-initialized', 'swiper-horizontal');
 
                 videoSwiperInstance = new Swiper('.video-reviews-swiper', {
                     slidesPerView: 1,
                     spaceBetween: 20,
-                    // Ensure smooth touch interaction
                     grabCursor: true,
                     touchStartPreventDefault: false,
-                    // Loop only if we have enough slides to loop smoothly, or just set to false if simplify
                     loop: false,
+                    speed: 800, // ✅ smooth transition
+                    effect: 'slide', // ✅ slide effect
+                    cssMode: false, // ✅ disable CSS mode
+                    freeMode: false, // ✅ disable free mode
+                    resistance: true, // ✅ enable resistance
+                    resistanceRatio: 0.85, // ✅ smooth resistance
                     autoplay: {
                         delay: 4000,
                         disableOnInteraction: false,
+                        pauseOnMouseEnter: true, // ✅ pause on hover
                     },
                     pagination: {
                         el: '.video-reviews-pagination',
@@ -70,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         prevEl: '.video-reviews-prev',
                     },
                     breakpoints: {
-                        // Mobile/Tablet
                         320: {
                             slidesPerView: 1,
                             spaceBetween: 15,
@@ -79,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             slidesPerView: 2,
                             spaceBetween: 20,
                         },
-                        // Desktop
                         1024: {
                             slidesPerView: 3,
                             spaceBetween: 24,
@@ -93,22 +94,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Video Swiper Initialized');
             }
         } else {
-            // We do NOT need a slider -> Destroy if exists
             if (videoSwiperInstance) {
                 videoSwiperInstance.destroy(true, true);
                 videoSwiperInstance = null;
-
-                // Remove swiper classes to restore grid/stack layout
                 videoReviewsContainer.classList.remove('swiper', 'swiper-initialized', 'swiper-horizontal');
                 console.log('Video Swiper Destroyed');
             }
         }
     }
 
-    // Run on load
     initVideoReviewsSwiper();
 
-    // Run on resize
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
