@@ -956,6 +956,21 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  #vip-pricing .price-block {
+    gap: 15px;
+  }
+
+  #vip-pricing .price-block p {
+    font-size: 0.95rem;
+    padding: 15px 18px;
+  }
+
+  #vip-pricing .price-block span {
+    font-size: 1.3rem;
+  }
+}
+
 /* VIP: box, divider and note styling to match the provided image */
 #vip-pricing .pricing-box {
   max-width: 750px;
@@ -977,7 +992,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 30px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding: 0px 0;
   /* margin-bottom: 25px; */
 }
