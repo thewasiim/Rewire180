@@ -45,3 +45,33 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+// ===== NAVBAR HIDE/SHOW ON SCROLL =====
+(function() {
+    let lastScroll = 0;
+    const navbar = document.querySelector('.main-navbar');
+    const scrollThreshold = 100; // 100px scroll ke baad activate hoga
+    
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Top pe ho toh normal state
+        if (currentScroll <= scrollThreshold) {
+            navbar.classList.remove('scroll-up');
+            navbar.classList.remove('scroll-down');
+            return;
+        }
+        
+        // Scroll direction detect karo
+        if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+            // ⬇️ SCROLLING DOWN - Hide navbar
+            navbar.classList.remove('scroll-up');
+            navbar.classList.add('scroll-down');
+        } else if (currentScroll < lastScroll) {
+            // ⬆️ SCROLLING UP - Show navbar
+            navbar.classList.remove('scroll-down');
+            navbar.classList.add('scroll-up');
+        }
+        
+        lastScroll = currentScroll;
+    });
+})();
