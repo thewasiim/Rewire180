@@ -217,7 +217,7 @@ body {
   font-size: 13px;
   letter-spacing: .18em;
   color: #9a9a9a;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -340,7 +340,8 @@ body {
 /* ================= SKILLS SECTION ================= */
 .video-section-container {
   /* margin-bottom: 20px; */
-  padding: 50px 10px;
+  padding-top: 40px;
+  padding-bottom: 15px;
  
 }
 
@@ -424,9 +425,9 @@ body {
 .reviews-ss {
   /* background: radial-gradient(circle at top, #0e0e0e, #050505); */
   padding: 50px 0;
-   background:
+   /* background:
     radial-gradient(circle at 100% 5%, rgba(41, 38, 238, 0.22), transparent 40%),
-    linear-gradient(to top, #0a0a0a, #050505);
+    linear-gradient(to top, #0a0a0a, #050505); */
 }
 
 .reviews-ss-inner {
@@ -519,7 +520,10 @@ body {
 .reviews-container {
   max-width: 1400px;
   margin: auto;
-  padding: 0 48px;
+  padding: 10px 48px;
+  background:
+    radial-gradient(circle at 100% 5%, rgba(41, 38, 238, 0.22), transparent 40%),
+    linear-gradient(to top, #0a0a0a, #050505);
 }
 
 /* HEADER */
@@ -826,7 +830,7 @@ body {
 }
 
 .vip-pricing .pricing-title span {
-  color: #4a90d9;
+  color: #2a6df4;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -920,7 +924,7 @@ body {
 }
 
 #vip-pricing .pricing-note {
-  color: #4a90d9;
+  color: #2a6df4;
   font-style: italic;
   margin-bottom: 20px;
 }
@@ -956,7 +960,7 @@ body {
 } */
 
 #vip-pricing .price-block span {
-  color: #4a90d9;
+  color: #2a6df4;
   font-weight: 700;
   font-size: 1.6rem;
   display: block;
@@ -998,7 +1002,7 @@ body {
   padding: 30px 0 30px;
   /* ⬅️ pehle 120px tha */
   color: #fff;
-  background-color: rgba(2, 1, 56, 0.22);
+  background-color: rgba(4, 2, 118, 0.22);
 }
 
 .footer-container {
