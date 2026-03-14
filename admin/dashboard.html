@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewire180 — Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- ─── TOAST CONTAINER ──────────────────────────────────────── -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ─── CHANGE PASSWORD MODAL ────────────────────────────────── -->
+    <div class="modal-overlay" id="changePwModal">
+        <div class="modal">
+            <h2>Change Password</h2>
+            <div class="fields-grid" style="grid-template-columns:1fr;">
+                <div class="field-group">
+                    <label class="field-label">Current Password</label>
+                    <input type="password" id="currentPw" placeholder="Current password">
+                </div>
+                <div class="field-group">
+                    <label class="field-label">New Password</label>
+                    <input type="password" id="newPw" placeholder="Min. 6 characters">
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Confirm Password</label>
+                    <input type="password" id="confirmPw" placeholder="Repeat password">
+                </div>
+            </div>
+            <div class="panel-actions">
+                <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-wrapper">
+
+        <!-- ─── SIDEBAR ────────────────────────────────────────────── -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                Rewire <span>180</span>
+                <small>Admin Dashboard</small>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Content</div>
+                <a href="#hero" class="active" onclick="scrollTo('hero')">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M8 21h8M12 17v4" />
+                    </svg>
+                    Hero Section
+                </a>
+                <a href="#skills" onclick="scrollTo('skills')">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <polygon points="23 7 16 12 23 17 23 7" />
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                    </svg>
+                    Skills Videos
+                </a>
+                <a href="#video-reviews" onclick="scrollTo('video-reviews')">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                    Video Reviews
+                </a>
+                <a href="#photo-reviews" onclick="scrollTo('photo-reviews')">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                    Photo Reviews
+                </a>
+                <a href="#testimonials" onclick="scrollTo('testimonials')">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 20c0-3 3-6 8-6s8 3 8 6" />
+                    </svg>
+                    Testimonials
+                </a>
+                <div class="nav-section-title">Pricing</div>
+                <a href="#method-pricing" onclick="scrollTo('method-pricing')">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <line x1="12" y1="1" x2="12" y2="23" />
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    180 Method
+                </a>
+                <a href="#vip-pricing" onclick="scrollTo('vip-pricing')">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                    VIP Coaching
+                </a>
+                <div class="nav-section-title">Account</div>
+                <a href="#" onclick="openModal()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    Change Password
+                </a>
+                <a href="/" target="_blank">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    View Live Site
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- ─── MAIN CONTENT ─────────────────────────────────────── -->
+        <main class="main-content">
+
+            <div class="top-bar">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <button class="hamburger-admin" id="hamburgerAdmin" onclick="toggleSidebar()">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <line x1="3" y1="12" x2="21" y2="12" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <line x1="3" y1="18" x2="21" y2="18" />
+                        </svg>
+                    </button>
+                    <h1>Content Manager</h1>
+                </div>
+                <div class="top-bar-right">
+                    <div class="status-dot"></div>
+                    <span class="status-text">Connected</span>
+                </div>
+            </div>
+
+            <!-- ═══ HERO SECTION ══════════════════════════════════════ -->
+            <div class="section-panel" id="hero">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <rect x="2" y="3" width="20" height="14" rx="2" />
+                                <path d="M8 21h8M12 17v4" />
+                            </svg>
+                        </div>
+                        Hero Section
+                    </div>
+                    <svg class="panel-toggle open" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body open">
+                    <div class="fields-grid">
+
+                        <div class="field-group field-full">
+                            <label class="field-label">Hero Video</label>
+                            <div class="upload-zone" id="hero_video-zone">
+                                <input type="file" accept="video/*" onchange="handleUpload(this,'hero_video','video')">
+                                <div class="upload-label">
+                                    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"
+                                        viewBox="0 0 24 24">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="17 8 12 3 7 8" />
+                                        <line x1="12" y1="3" x2="12" y2="15" />
+                                    </svg>
+                                    <strong>Click or drag to upload</strong>
+                                    <span>MP4, MOV, WEBM — max 500MB</span>
+                                </div>
+                                <div class="progress-bar-wrap" id="hero_video-progress">
+                                    <div class="progress-bar"></div>
+                                </div>
+                                <div class="upload-preview" id="hero_video-preview"><video controls></video></div>
+                            </div>
+                            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current: <span
+                                    id="hero_video-current" style="color:var(--accent)">loading...</span></p>
+                        </div>
+
+                        <div class="field-group field-full">
+                            <label class="field-label">Hero Eyebrow Text</label>
+                            <input type="text" id="hero_eyebrow" placeholder="180 DAY TRANSFORMATION PROGRAM">
+                        </div>
+
+                        <div class="field-group field-full">
+                            <label class="field-label">Hero Title</label>
+                            <textarea id="hero_title" rows="2"
+                                placeholder="180 days to transform your body..."></textarea>
+                        </div>
+
+                        <div class="field-group field-full">
+                            <label class="field-label">Hero Subtitle</label>
+                            <textarea id="hero_subtitle" rows="3" placeholder="In 180 days..."></textarea>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label">Hero CTA Button Link</label>
+                            <input type="text" id="hero_cta_link" placeholder="#vip-pricing">
+                        </div>
+
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('hero')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Hero
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ SKILLS SECTION ════════════════════════════════════ -->
+            <div class="section-panel" id="skills">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <polygon points="23 7 16 12 23 17 23 7" />
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                            </svg>
+                        </div>
+                        Skills Videos
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+
+                    <div class="review-item">
+                        <div class="review-item-header">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 8v4l3 3" />
+                            </svg>
+                            Card 1
+                        </div>
+                        <div class="fields-grid">
+                            <div class="field-group field-full">
+                                <label class="field-label">Video 1</label>
+                                <div class="upload-zone">
+                                    <input type="file" accept="video/*"
+                                        onchange="handleUpload(this,'skills_video_1','video')">
+                                    <div class="upload-label">
+                                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                            viewBox="0 0 24 24">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                            <polyline points="17 8 12 3 7 8" />
+                                            <line x1="12" y1="3" x2="12" y2="15" />
+                                        </svg>
+                                        <strong>Upload Video</strong>
+                                    </div>
+                                    <div class="progress-bar-wrap" id="skills_video_1-progress">
+                                        <div class="progress-bar"></div>
+                                    </div>
+                                    <div class="upload-preview" id="skills_video_1-preview"><video controls></video>
+                                    </div>
+                                </div>
+                                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current: <span
+                                        id="skills_video_1-current" style="color:var(--accent)">loading...</span></p>
+                            </div>
+                            <div class="field-group field-full">
+                                <label class="field-label">Card 1 Description</label>
+                                <textarea id="skills_text_1" rows="2"></textarea>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Card 1 Button Link</label>
+                                <input type="text" id="skills_btn_1" placeholder="#vip-pricing">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-item">
+                        <div class="review-item-header">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 8v4l3 3" />
+                            </svg>
+                            Card 2
+                        </div>
+                        <div class="fields-grid">
+                            <div class="field-group field-full">
+                                <label class="field-label">Video 2</label>
+                                <div class="upload-zone">
+                                    <input type="file" accept="video/*"
+                                        onchange="handleUpload(this,'skills_video_2','video')">
+                                    <div class="upload-label">
+                                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                            viewBox="0 0 24 24">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                            <polyline points="17 8 12 3 7 8" />
+                                            <line x1="12" y1="3" x2="12" y2="15" />
+                                        </svg>
+                                        <strong>Upload Video</strong>
+                                    </div>
+                                    <div class="progress-bar-wrap" id="skills_video_2-progress">
+                                        <div class="progress-bar"></div>
+                                    </div>
+                                    <div class="upload-preview" id="skills_video_2-preview"><video controls></video>
+                                    </div>
+                                </div>
+                                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current: <span
+                                        id="skills_video_2-current" style="color:var(--accent)">loading...</span></p>
+                            </div>
+                            <div class="field-group field-full">
+                                <label class="field-label">Card 2 Description</label>
+                                <textarea id="skills_text_2" rows="2"></textarea>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Card 2 Button Link</label>
+                                <input type="text" id="skills_btn_2" placeholder="#method-pricing">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('skills')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Skills
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ VIDEO REVIEWS ══════════════════════════════════════ -->
+            <div class="section-panel" id="video-reviews">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </div>
+                        Video Reviews
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <!-- Reviews generated dynamically by JS -->
+                    <div id="video-reviews-container"></div>
+                    <div style="margin-top: 20px; margin-bottom: 20px;">
+                        <button class="btn btn-outline" onclick="addVideoReview()">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add New Video Review
+                        </button>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('video_reviews')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Video Reviews
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ PHOTO REVIEWS ══════════════════════════════════════ -->
+            <div class="section-panel" id="photo-reviews">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
+                            </svg>
+                        </div>
+                        Photo Reviews (Screenshots)
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <div id="photo-reviews-container"></div>
+                    <div style="margin-top: 20px; margin-bottom: 20px;">
+                        <button class="btn btn-outline" onclick="addPhotoReview()">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add New Photo Review
+                        </button>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('photo_reviews')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Photo Reviews
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ TESTIMONIALS ════════════════════════════════════════ -->
+            <div class="section-panel" id="testimonials">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <circle cx="12" cy="8" r="4" />
+                                <path d="M4 20c0-3 3-6 8-6s8 3 8 6" />
+                            </svg>
+                        </div>
+                        Testimonials
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <div id="testimonials-container"></div>
+                    <div style="margin-top: 20px; margin-bottom: 20px;">
+                        <button class="btn btn-outline" onclick="addTestimonial()">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add Testimonial
+                        </button>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveTestimonials()">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Testimonials
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ 180 METHOD PRICING ════════════════════════════════ -->
+            <div class="section-panel" id="method-pricing">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon" style="background:rgba(240,180,41,0.15);color:var(--gold);">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                        </div>
+                        The 180 Method™ Pricing
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <div class="fields-grid">
+                        <div class="field-group">
+                            <label class="field-label">Plan Title</label>
+                            <input type="text" id="method_title" placeholder="The 180™ Method">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Subtitle</label>
+                            <input type="text" id="method_subtitle" placeholder="PRIVATE COACHING">
+                        </div>
+                        <div class="field-group field-full">
+                            <label class="field-label">Features List <span
+                                    style="font-weight:400;text-transform:none;letter-spacing:0;">(one feature per
+                                    line)</span></label>
+                            <textarea id="method_features" rows="9"
+                                placeholder="Personalised weekly training&#10;Tailored nutrition updates&#10;..."></textarea>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Option 1 Price</label>
+                            <input type="text" id="method_price_1" placeholder="£1,000 / month">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Option 2 Price</label>
+                            <input type="text" id="method_price_2" placeholder="£6,000 upfront">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Button Link</label>
+                            <input type="text" id="method_btn_link" placeholder="https://...">
+                        </div>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('method_pricing')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save 180 Method Pricing
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ VIP PRICING ════════════════════════════════════════ -->
+            <div class="section-panel" id="vip-pricing">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon" style="background:rgba(240,180,41,0.15);color:var(--gold);">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                        </div>
+                        VIP Private Coaching Pricing
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <div class="fields-grid">
+                        <div class="field-group">
+                            <label class="field-label">Title</label>
+                            <input type="text" id="vip_title" placeholder="VIP Private Coaching">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Subtitle</label>
+                            <input type="text" id="vip_subtitle" placeholder="IN PERSON">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Note (e.g. Willing to relocate)</label>
+                            <input type="text" id="vip_note" placeholder="Willing to relocate">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Button Link</label>
+                            <input type="text" id="vip_btn_link" placeholder="https://...">
+                        </div>
+                        <div class="field-group field-full">
+                            <label class="field-label">Description</label>
+                            <textarea id="vip_description" rows="4"></textarea>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">UK Starting Price</label>
+                            <input type="text" id="vip_price_uk" placeholder="£10,000">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Abroad Starting Price</label>
+                            <input type="text" id="vip_price_abroad" placeholder="£20,000">
+                        </div>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('vip_pricing')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save VIP Pricing
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>

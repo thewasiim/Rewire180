@@ -1,0 +1,304 @@
+{
+  "admin": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "mwasim0048@gmail.com",
+      "password": "$2a$10$U/Md2Quw7SUZEl3cezwWQ.zDtYl6zJ/6JIWEvCb7EJDo5c//84ThO",
+      "resetToken": "89d6060d658def168161babc67e70843b91d67e71def73bcf87fcacea283c533",
+      "resetTokenExpiry": 1773347005136
+    }
+  ],
+  "content": [
+    {
+      "key": "hero_video",
+      "value": "/uploads/1773335766536-775670910.mov",
+      "type": "video",
+      "label": "Hero Video",
+      "section": "hero",
+      "updated_at": "2026-03-12T17:16:06.655Z"
+    },
+    {
+      "key": "hero_eyebrow",
+      "value": "180 DAY TRANSFORMATION PROGRAM",
+      "type": "text",
+      "label": "Hero Eyebrow Text",
+      "section": "hero",
+      "updated_at": "2026-03-12T17:43:27.040Z"
+    },
+    {
+      "key": "hero_title",
+      "value": "180 days to transform your body and build the confidence that lasts.",
+      "type": "text",
+      "label": "Hero Title",
+      "section": "hero",
+      "updated_at": "2026-03-12T17:43:27.040Z"
+    },
+    {
+      "key": "hero_subtitle",
+      "value": "In 180 days I help busy professionals build a strong body and unshakeable confidence and mindset without sacrificing their time.",
+      "type": "text",
+      "label": "Hero Subtitle",
+      "section": "hero",
+      "updated_at": "2026-03-12T17:43:27.040Z"
+    },
+    {
+      "key": "hero_cta_link",
+      "value": "#vip-pricing",
+      "type": "text",
+      "label": "Hero CTA Link",
+      "section": "hero",
+      "updated_at": "2026-03-12T17:43:27.041Z"
+    },
+    {
+      "key": "skills_video_1",
+      "value": "src/assets/videos/hero-video.mp4",
+      "type": "video",
+      "label": "Skills Video 1",
+      "section": "skills"
+    },
+    {
+      "key": "skills_text_1",
+      "value": "Follow this step-by-step system to build a strong body and unstoppable confidence.",
+      "type": "text",
+      "label": "Skills Card 1 Text",
+      "section": "skills"
+    },
+    {
+      "key": "skills_btn_1",
+      "value": "#vip-pricing",
+      "type": "text",
+      "label": "Skills Card 1 Button Link",
+      "section": "skills"
+    },
+    {
+      "key": "skills_video_2",
+      "value": "src/assets/videos/hero-video.mp4",
+      "type": "video",
+      "label": "Skills Video 2",
+      "section": "skills"
+    },
+    {
+      "key": "skills_text_2",
+      "value": "Learn how to stay consistent, disciplined, and mentally sharp for life.",
+      "type": "text",
+      "label": "Skills Card 2 Text",
+      "section": "skills"
+    },
+    {
+      "key": "skills_btn_2",
+      "value": "#method-pricing",
+      "type": "text",
+      "label": "Skills Card 2 Button Link",
+      "section": "skills"
+    },
+    {
+      "key": "video_reviews_list",
+      "type": "list_object",
+      "label": "Video Reviews",
+      "section": "video_reviews",
+      "value": [
+        {
+          "video": "reviews/v1.mp4",
+          "text": "\"I was burnt out and had failed at online coaching before, but James' course helped me get set up fast and sign my first four clients. Best investment I've made.\""
+        },
+        {
+          "video": "reviews/v2.mp4",
+          "text": "\"Before joining, I was overwhelmed and my business was stuck. The mentorship gave me clarity, direction, and systems that helped my revenue grow massively.\""
+        },
+        {
+          "video": "reviews/v3.mp4",
+          "text": "\"Joining the mentorship was one of the best decisions I made. My followers grew fast and my systems finally made sense.\""
+        },
+        {
+          "video": "reviews/v4.mp4",
+          "text": "\"Clear steps, real systems, and real results. This program helped me stop guessing and start executing.\""
+        },
+        {
+          "video": "",
+          "text": ""
+        },
+        {
+          "video": "",
+          "text": ""
+        }
+      ],
+      "updated_at": "2026-03-12T17:14:12.959Z"
+    },
+    {
+      "key": "testimonials_list",
+      "type": "list_object",
+      "label": "Testimonials",
+      "section": "testimonials",
+      "value": [
+        {
+          "badge": "💼 Busy Professional",
+          "text": "I used to skip the gym for weeks at a time. With Wasim's 180‑day plan I now train 4x a week, dropped 9kg, and actually enjoy the process.",
+          "initials": "AS",
+          "name": "Ahmed Shaikh",
+          "meta": "Tech consultant · London",
+          "stars": "★★★★★",
+          "color": "#3B82F6",
+          "active": true
+        },
+        {
+          "badge": "🔥 Fat Loss",
+          "text": "Diet plans always felt extreme before. This time my calories, steps and training were all tailored to my lifestyle. I lost 12kg without feeling like I was on a crash diet.",
+          "initials": "PR",
+          "name": "Priya R.",
+          "meta": "Marketing lead · Manchester",
+          "stars": "★★★★★",
+          "color": "#EC4899",
+          "active": true
+        },
+        {
+          "badge": "🏋️ Strength & Muscle",
+          "text": "I came in skinny with zero structure. Now I’m hitting PBs every month and actually understand what I’m doing in the gym instead of copying random workouts.",
+          "initials": "MK",
+          "name": "Mohammed Khan",
+          "meta": "Software engineer · Birmingham",
+          "stars": "★★★★☆",
+          "color": "#F59E0B",
+          "active": true
+        },
+        {
+          "badge": "🧠 Confidence & Mindset",
+          "text": "Wasim didn’t just change my training, he changed how I speak to myself. I’m more confident at work, in the gym, and even in social situations.",
+          "initials": "SR",
+          "name": "Sara R.",
+          "meta": "Finance · London",
+          "stars": "★★★★★",
+          "color": "#8B5CF6",
+          "active": true
+        },
+        {
+          "badge": "⌛ Time‑Poor Founder",
+          "text": "I thought I was ‘too busy’ to get in shape. We built a routine around my calls and travel. My energy is higher and my back pain is gone.",
+          "initials": "NK",
+          "name": "Nikhil K.",
+          "meta": "Startup founder · Dubai",
+          "stars": "★★★★★",
+          "color": "#10B981",
+          "active": true
+        },
+        {
+          "badge": "📱 Online Coaching Skeptic",
+          "text": "I had tried online coaching before and it flopped. This time the check‑ins, feedback videos and clear targets kept me on track. Best decision I’ve made for my body.",
+          "initials": "ST",
+          "name": "Sameer T.",
+          "meta": "Sales · Leeds",
+          "stars": "★★★★★",
+          "color": "#EF4444",
+          "active": true
+        }
+      ],
+      "updated_at": "2026-03-14T18:59:22.050Z"
+    },
+    {
+      "key": "photo_reviews_list",
+      "type": "list_string",
+      "label": "Photo Reviews",
+      "section": "photo_reviews",
+      "value": [
+        "src/assets/images/Gemini_Generated_Image_m9l67wm9l67wm9l6.png",
+        "src/assets/images/Gemini_Generated_Image_m9l67wm9l67wm9l6.png",
+        "src/assets/images/Gemini_Generated_Image_m9l67wm9l67wm9l6.png",
+        "src/assets/images/Gemini_Generated_Image_m9l67wm9l67wm9l6.png",
+        "src/assets/images/Gemini_Generated_Image_m9l67wm9l67wm9l6.png",
+        "/uploads/1773335674105-747287298.png"
+      ],
+      "updated_at": "2026-03-12T17:14:34.121Z"
+    },
+    {
+      "key": "method_title",
+      "value": "The 180™ Method",
+      "type": "text",
+      "label": "Method Title",
+      "section": "method_pricing"
+    },
+    {
+      "key": "method_subtitle",
+      "value": "PRIVATE COACHING",
+      "type": "text",
+      "label": "Method Subtitle",
+      "section": "method_pricing"
+    },
+    {
+      "key": "method_features",
+      "value": "Personalised weekly training\nTailored nutrition updates\nPrivate coaching app access\nWeekly check-ins\nDaily accountability & motivation\nGroup video calls\nMindset coaching & confidence-building exercises\nPractical strategies to believe in yourself and take consistent action\nTrain anywhere, anytime",
+      "type": "text",
+      "label": "Method Features (one per line)",
+      "section": "method_pricing"
+    },
+    {
+      "key": "method_price_1",
+      "value": "£1,000 / month",
+      "type": "text",
+      "label": "Method Option 1 Price",
+      "section": "method_pricing"
+    },
+    {
+      "key": "method_price_2",
+      "value": "£6,000 upfront",
+      "type": "text",
+      "label": "Method Option 2 Price",
+      "section": "method_pricing"
+    },
+    {
+      "key": "method_btn_link",
+      "value": "#",
+      "type": "text",
+      "label": "Method Button Link",
+      "section": "method_pricing"
+    },
+    {
+      "key": "vip_title",
+      "value": "VIP Private Coaching",
+      "type": "text",
+      "label": "VIP Title",
+      "section": "vip_pricing"
+    },
+    {
+      "key": "vip_subtitle",
+      "value": "IN PERSON",
+      "type": "text",
+      "label": "VIP Subtitle",
+      "section": "vip_pricing"
+    },
+    {
+      "key": "vip_note",
+      "value": "Willing to relocate",
+      "type": "text",
+      "label": "VIP Note",
+      "section": "vip_pricing"
+    },
+    {
+      "key": "vip_description",
+      "value": "Fully immersive coaching for clients who want a total transformation in body, mind, and confidence. 2–4 week intensive. UK & international. Includes training, nutrition, lifestyle, and mindset mastery.",
+      "type": "text",
+      "label": "VIP Description",
+      "section": "vip_pricing"
+    },
+    {
+      "key": "vip_price_uk",
+      "value": "£10,000",
+      "type": "text",
+      "label": "VIP Price (UK)",
+      "section": "vip_pricing"
+    },
+    {
+      "key": "vip_price_abroad",
+      "value": "£20,000",
+      "type": "text",
+      "label": "VIP Price (Abroad)",
+      "section": "vip_pricing"
+    },
+    {
+      "key": "vip_btn_link",
+      "value": "#",
+      "type": "text",
+      "label": "VIP Button Link",
+      "section": "vip_pricing"
+    }
+  ]
+}

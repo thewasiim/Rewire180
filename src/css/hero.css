@@ -29,24 +29,24 @@ body {
 /* ===== NAVBAR ===== */
 /* Navbar Animation */
 .main-navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 78px;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    z-index: 2000;
-    transition: transform 0.3s ease;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 78px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 2000;
+  transition: transform 0.3s ease;
 }
 
 .main-navbar.scroll-down {
-    transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 
 .main-navbar.scroll-up {
-    transform: translateY(0);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(0);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* CONTAINER */
@@ -112,19 +112,40 @@ body {
 .hamburger {
   display: none;
   flex-direction: column;
+  justify-content: center;
   gap: 5px;
   cursor: pointer;
+  padding: 6px;
+  background: none;
+  border: none;
   z-index: 3000;
 }
 
 .hamburger span {
+  display: block;
   width: 24px;
   height: 2px;
   background: #fff;
   border-radius: 2px;
+  transition: transform 0.35s ease, opacity 0.35s ease, width 0.35s ease;
+  transform-origin: center;
 }
 
-/* ===== MOBILE MENU ===== */
+/* Hamburger X animation */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* MOBILE MENU */
 .mobile-menu {
   position: fixed;
   top: 78px;
@@ -134,14 +155,11 @@ body {
   background: rgba(0, 0, 0, 0.96);
   backdrop-filter: blur(12px);
   padding: 32px;
-
   display: flex;
   flex-direction: column;
-
   transform: translateY(-120%);
   opacity: 0;
   pointer-events: none;
-
   transition: transform .35s ease, opacity .25s ease;
   z-index: 3000;
 }
@@ -152,9 +170,33 @@ body {
   font-size: 18px;
   padding: 14px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: color 0.2s, transform 0.35s ease, opacity 0.35s ease;
 }
 
-/* MOBILE hover highlight */
+/* Link animations with stagger */
+.mobile-menu.active a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu.active a:nth-child(1) {
+  transition-delay: 0.05s;
+}
+
+.mobile-menu.active a:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.mobile-menu.active a:nth-child(3) {
+  transition-delay: 0.15s;
+}
+
+.mobile-menu.active a:nth-child(4) {
+  transition-delay: 0.2s;
+}
+
 .mobile-menu a:hover {
   color: #2a6df4;
 }
@@ -266,18 +308,23 @@ body {
   transform: translateY(-3px);
   box-shadow: 0 18px 40px rgba(42, 109, 244, 0.4);
 }
+
 @media(max-width: 768px) {
   .hero-btn {
-    padding: 12px 40px; /* ✅ Mobile padding */
-    font-size: 16px; /* Optional: font size bhi chota kar sakte ho */
+    padding: 12px 40px;
+    /* ✅ Mobile padding */
+    font-size: 16px;
+    /* Optional: font size bhi chota kar sakte ho */
   }
 }
 
 /* VIDEO */
 /* VIDEO */
 .hero-video {
-  max-width: 900px; /* ✅ Desktop width */
-  height: 506.25px; /* ✅ Desktop height */
+  max-width: 900px;
+  /* ✅ Desktop width */
+  height: 506.25px;
+  /* ✅ Desktop height */
   margin: 80px auto 0;
   margin-top: 30px;
   position: relative;
@@ -317,7 +364,8 @@ body {
     height: auto;
     border-radius: 18px;
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
+    padding-bottom: 56.25%;
+    /* 16:9 */
   }
 
   .hero-video video {
@@ -342,7 +390,7 @@ body {
   /* margin-bottom: 20px; */
   padding-top: 40px;
   padding-bottom: 15px;
- 
+
 }
 
 .video-section {
@@ -397,10 +445,13 @@ body {
   transition: transform .25s ease, box-shadow .25s ease;
   text-decoration: none;
 }
+
 @media(max-width: 768px) {
   .btn {
-    padding: 12px 40px; /* ✅ Mobile padding */
-    font-size: 16px; /* Optional: font size bhi chota kar sakte ho */
+    padding: 12px 40px;
+    /* ✅ Mobile padding */
+    font-size: 16px;
+    /* Optional: font size bhi chota kar sakte ho */
   }
 }
 
@@ -421,94 +472,243 @@ body {
   }
 }
 
-/* ================= IMAGE REVIEWS ================= */
-.reviews-ss {
-  /* background: radial-gradient(circle at top, #0e0e0e, #050505); */
-  padding: 50px 0;
-   /* background:
-    radial-gradient(circle at 100% 5%, rgba(41, 38, 238, 0.22), transparent 40%),
-    linear-gradient(to top, #0a0a0a, #050505); */
+/* ===== TESTIMONIALS SLIDER ===== */
+.testimonials-section {
+  padding: 80px 0;
 }
 
-.reviews-ss-inner {
-  max-width: 1400px;
-  margin: auto;
-  padding: 0 48px;
-}
-
-.reviews-ss-header {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.reviews-ss-header .eyebrow {
-  font-size: 13px;
-  letter-spacing: .18em;
+.ts-sub {
+  font-size: 14px;
   color: #9a9a9a;
-  margin-bottom: 16px;
+  margin: 8px 0 0;
 }
 
-.reviews-ss-header h2 {
-  font-size: 35px;
-  line-height: 1.15;
-  font-weight: 700;
-}
-
-/* Swiper overrides */
-.reviews-ss-grid {
-  width: 100%;
-  padding-bottom: 50px;
-  /* Space for pagination */
+.ts-slider-outer {
   overflow: hidden;
+  width: 100%;
 }
 
-.swiper-slide {
-  height: auto;
+.ts-track {
   display: flex;
-  justify-content: center;
+  transition: transform 0.4s cubic-bezier(.4, 0, .2, 1);
+  will-change: transform;
+  padding: 20px;
 }
 
-.ss-card {
-  width: 100%;
+.ts-card {
+  flex: 0 0 calc(25% - 12px);
+  margin-right: 16px;
   background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  padding: 16px;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, .55);
-  transition: transform .25s ease;
+  padding: 28px;
+  box-sizing: border-box;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-/* Image */
-.ss-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 14px;
-}
-
-/* Hover micro */
-.ss-card:hover {
+.ts-card:hover {
+  border-color: rgba(74, 144, 217, 0.4);
   transform: translateY(-4px);
-  transition: .25s ease;
 }
 
-/* Pagination config */
-.swiper-pagination-bullet {
-  background: #fff;
-  opacity: 0.5;
+.ts-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: rgba(74, 144, 217, 0.12);
+  color: #a8e063;
+  padding: 4px 10px;
+  border: 1px solid rgba(74, 144, 217, 0.2);
+  border-radius: 4px;
 }
 
-.swiper-pagination-bullet-active {
-  background: #2a6df4;
-  opacity: 1;
+.ts-quote {
+  font-size: 56px;
+  line-height: 0.7;
+  color: rgba(74, 144, 217, 0.2);
+  font-weight: 900;
+  margin-bottom: 8px;
 }
 
-/* Mobile */
+.ts-text {
+  font-size: 13px;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.ts-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ts-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.ts-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+}
+
+.ts-meta {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 2px;
+}
+
+.ts-stars {
+  color: #F59E0B;
+  font-size: 12px;
+  margin-top: 3px;
+  letter-spacing: 1px;
+}
+
+.ts-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.ts-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+
+.ts-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ts-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.ts-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ts-dot.active {
+  background: #a8e063;
+}
+
 @media (max-width: 900px) {
-  /* Adjust as needed */
+  .ts-card {
+    flex: 0 0 calc(50% - 8px);
+  }
 }
 
 @media (max-width: 600px) {
-  /* Adjust as needed */
+  .ts-card {
+    flex: 0 0 100%;
+    margin-right: 0;
+  }
+}
+
+/* Header fix — center karo */
+.reviews-ss-header {
+  text-align: center;
+  /* already hai, check kar ke add karo */
+  margin-bottom: 50px;
+}
+
+/* Quote mark fix */
+.ts-quote {
+  font-family: Georgia, 'Times New Roman', serif;
+  /* serif font chahiye quote ke liye */
+  font-size: 72px;
+  line-height: 0.6;
+  color: rgba(74, 144, 217, 0.25);
+  font-weight: 900;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Card internal spacing fix */
+.ts-card {
+  padding: 28px 24px 24px 24px;
+  /* top thoda zyada for badge space */
+}
+
+/* Badge positioning fix — text ke upar aa raha tha */
+.ts-badge {
+  position: absolute;
+  top: 18px;
+  right: 16px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: rgba(74, 144, 217, 0.15);
+  color: #a8e063;
+  padding: 5px 10px;
+  border: 1px solid rgba(74, 144, 217, 0.25);
+  border-radius: 4px;
+  white-space: nowrap;
+  /* badge text wrap na ho */
+}
+
+/* Text thoda neeche shift karo taaki badge se overlap na ho */
+.ts-quote {
+  margin-top: 20px;
+  /* badge ke liye space */
+}
+
+@media (max-width: 768px) {
+  .ts-card {
+    flex: 0 0 100%;
+    margin-right: 0;
+  }
+
+  .ts-quote {
+    font-size: 48px;
+  }
+
+  .ts-text {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .reviews-ss-inner {
+    padding: 0 20px;
+    /* side padding kam karo */
+  }
+
+  .testimonials-section {
+    padding: 50px 0;
+  }
 }
 
 /* REVIEWS SECTION */
