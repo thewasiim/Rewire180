@@ -21,10 +21,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // ─── API ROUTES ───────────────────────────────────────────────────────────────
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/content', require('./routes/content'));
-app.use('/api/upload', require('./routes/upload'));
-app.use('/api/analytics', require('./routes/analytics'));
+const router = express.Router();
+router.use('/auth', require('./routes/auth'));
+router.use('/content', require('./routes/content'));
+router.use('/upload', require('./routes/upload'));
+router.use('/analytics', require('./routes/analytics'));
+
+// Attach the router to both the root and the netlify functions path
+app.use('/api', router);
+app.use('/.netlify/functions/api', router);
 
 // ─── CATCH-ALL (local dev only) ───────────────────────────────────────────────
 if (process.env.NODE_ENV !== 'production') {
