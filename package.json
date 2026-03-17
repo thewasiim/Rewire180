@@ -1,0 +1,18 @@
+{
+  "name": "rewire180",
+  "version": "1.0.0",
+  "description": "Rewire180 site with admin backend",
+  "private": true,
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.4",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^8.0.2",
+    "serverless-http": "^3.2.0"
+  }
+}
