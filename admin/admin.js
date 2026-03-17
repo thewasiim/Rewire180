@@ -21,7 +21,9 @@ const SECTION_KEYS = {
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
+    initSections();
     await loadContent();
+    await loadAnalytics();
 });
 
 // ─── LOAD CONTENT FROM API ────────────────────────────────────────────────────
@@ -483,11 +485,52 @@ function togglePanel(header) {
     toggle.classList.toggle('open');
 }
 
-function scrollTo(id) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // Sidebar active state
+// ─── TAB-BASED SECTION NAVIGATION ────────────────────────────────────────────
+function showSection(id, linkEl) {
+    // Prevent default anchor behavior
+    if (event) event.preventDefault();
+
+    // Hide all section panels
+    document.querySelectorAll('.section-panel').forEach(panel => {
+        panel.style.display = 'none';
+    });
+
+    // Show the selected panel
+    const target = document.getElementById(id);
+    if (target) {
+        target.style.display = 'block';
+        // Auto-open the panel body
+        const body = target.querySelector('.panel-body');
+        const toggle = target.querySelector('.panel-toggle');
+        if (body) body.classList.add('open');
+        if (toggle) toggle.classList.add('open');
+    }
+
+    // Update sidebar active state
     document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
-    event.target.closest('a')?.classList.add('active');
+    if (linkEl) {
+        linkEl.classList.add('active');
+    }
+
+    // Close mobile sidebar
+    if (window.innerWidth <= 900) {
+        document.getElementById('sidebar').classList.remove('open');
+    }
+
+    // Scroll to top
+    window.scrollTo({ top: 0 });
+}
+
+// Initialize: show only the first section (analytics) on page load
+function initSections() {
+    const panels = document.querySelectorAll('.section-panel');
+    panels.forEach((panel, i) => {
+        if (i === 0) {
+            panel.style.display = 'block';
+        } else {
+            panel.style.display = 'none';
+        }
+    });
 }
 
 function toggleSidebar() {
@@ -578,4 +621,105 @@ function showToast(message, type = 'success') {
         toast.classList.add('removing');
         setTimeout(() => toast.remove(), 300);
     }, 4000);
+}
+
+// ─── ANALYTICS ────────────────────────────────────────────────────────────────
+async function loadAnalytics() {
+    try {
+        const res = await fetch('/api/analytics', {
+            headers: { 'Authorization': `Bearer ${TOKEN}` }
+        });
+        if (res.status === 401) return;
+        const data = await res.json();
+        renderAnalytics(data);
+    } catch (err) {
+        console.warn('Analytics load failed:', err);
+    }
+}
+
+function renderAnalytics(data) {
+    // Stat cards
+    const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    setVal('stat-total-views', data.totalViews.toLocaleString());
+    setVal('stat-unique-visitors', data.uniqueVisitors.toLocaleString());
+    setVal('stat-today-views', data.todayViews.toLocaleString());
+
+    // Bar chart (last 7 days)
+    const barChart = document.getElementById('analytics-bar-chart');
+    if (barChart && data.dailyViews) {
+        const entries = Object.entries(data.dailyViews);
+        const maxVal = Math.max(...entries.map(e => e[1]), 1);
+        barChart.innerHTML = entries.map(([date, count]) => {
+            const pct = Math.max((count / maxVal) * 100, 3);
+            const dayName = new Date(date + 'T00:00:00').toLocaleDateString('en', { weekday: 'short' });
+            return `
+                <div class="bar-col">
+                    <div class="bar-value">${count}</div>
+                    <div class="bar" style="height:${pct}%"></div>
+                    <div class="bar-label">${dayName}</div>
+                </div>`;
+        }).join('');
+    }
+
+    // Device breakdown
+    const devicesEl = document.getElementById('analytics-devices');
+    if (devicesEl && data.devices) {
+        const total = Math.max(data.devices.desktop + data.devices.mobile + data.devices.tablet, 1);
+        const items = [
+            { name: 'Desktop', icon: '🖥️', count: data.devices.desktop, color: 'var(--accent)' },
+            { name: 'Mobile', icon: '📱', count: data.devices.mobile, color: '#EC4899' },
+            { name: 'Tablet', icon: '📟', count: data.devices.tablet, color: 'var(--gold)' }
+        ];
+        devicesEl.innerHTML = items.map(d => `
+            <div class="device-row">
+                <div class="device-icon">${d.icon}</div>
+                <div class="device-info">
+                    <div class="device-name">${d.name}</div>
+                    <div class="device-bar-wrap">
+                        <div class="device-bar-fill" style="width:${(d.count / total) * 100}%;background:${d.color}"></div>
+                    </div>
+                </div>
+                <div class="device-count">${d.count}</div>
+            </div>`).join('');
+    }
+
+    // Top pages
+    const topPagesEl = document.getElementById('analytics-top-pages');
+    if (topPagesEl && data.topPages) {
+        const maxPage = Math.max(...data.topPages.map(p => p.count), 1);
+        if (data.topPages.length === 0) {
+            topPagesEl.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">No page data yet.</p>';
+        } else {
+            topPagesEl.innerHTML = data.topPages.map(p => `
+                <div class="top-page-item">
+                    <div class="top-page-name">${p.page}</div>
+                    <div class="top-page-bar-wrap">
+                        <div class="top-page-bar-fill" style="width:${(p.count / maxPage) * 100}%"></div>
+                    </div>
+                    <div class="top-page-count">${p.count}</div>
+                </div>`).join('');
+        }
+    }
+
+    // Recent visits table
+    const tableBody = document.querySelector('#analytics-recent-table tbody');
+    if (tableBody && data.recentVisits) {
+        if (data.recentVisits.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);">No visits recorded yet.</td></tr>';
+        } else {
+            tableBody.innerHTML = data.recentVisits.map(v => {
+                const dt = new Date(v.timestamp);
+                const time = dt.toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+                const deviceClass = v.device.toLowerCase();
+                return `
+                    <tr>
+                        <td>${time}</td>
+                        <td>${v.page}</td>
+                        <td><span class="device-badge ${deviceClass}">${v.device}</span></td>
+                        <td>${v.browser}</td>
+                        <td style="color:var(--text-muted)">${v.ip}</td>
+                    </tr>`;
+            }).join('');
+        }
+    }
 }

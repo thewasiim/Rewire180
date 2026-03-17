@@ -49,28 +49,35 @@
                 <small>Admin Dashboard</small>
             </div>
             <nav class="sidebar-nav">
+                <div class="nav-section-title">Dashboard</div>
+                <a href="#analytics" class="active" onclick="showSection('analytics', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                    </svg>
+                    Analytics
+                </a>
                 <div class="nav-section-title">Content</div>
-                <a href="#hero" class="active" onclick="scrollTo('hero')">
+                <a href="#hero" onclick="showSection('hero', this)">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <rect x="2" y="3" width="20" height="14" rx="2" />
                         <path d="M8 21h8M12 17v4" />
                     </svg>
                     Hero Section
                 </a>
-                <a href="#skills" onclick="scrollTo('skills')">
+                <a href="#skills" onclick="showSection('skills', this)">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <polygon points="23 7 16 12 23 17 23 7" />
                         <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
                     </svg>
                     Skills Videos
                 </a>
-                <a href="#video-reviews" onclick="scrollTo('video-reviews')">
+                <a href="#video-reviews" onclick="showSection('video-reviews', this)">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                     </svg>
                     Video Reviews
                 </a>
-                <a href="#photo-reviews" onclick="scrollTo('photo-reviews')">
+                <a href="#photo-reviews" onclick="showSection('photo-reviews', this)">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <rect x="3" y="3" width="18" height="18" rx="2" />
                         <circle cx="8.5" cy="8.5" r="1.5" />
@@ -78,7 +85,7 @@
                     </svg>
                     Photo Reviews
                 </a>
-                <a href="#testimonials" onclick="scrollTo('testimonials')">
+                <a href="#testimonials" onclick="showSection('testimonials', this)">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <circle cx="12" cy="8" r="4" />
                         <path d="M4 20c0-3 3-6 8-6s8 3 8 6" />
@@ -86,14 +93,14 @@
                     Testimonials
                 </a>
                 <div class="nav-section-title">Pricing</div>
-                <a href="#method-pricing" onclick="scrollTo('method-pricing')">
+                <a href="#method-pricing" onclick="showSection('method-pricing', this)">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <line x1="12" y1="1" x2="12" y2="23" />
                         <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
                     180 Method
                 </a>
-                <a href="#vip-pricing" onclick="scrollTo('vip-pricing')">
+                <a href="#vip-pricing" onclick="showSection('vip-pricing', this)">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <polygon
                             points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -147,6 +154,98 @@
                 <div class="top-bar-right">
                     <div class="status-dot"></div>
                     <span class="status-text">Connected</span>
+                </div>
+            </div>
+
+            <!-- ═══ ANALYTICS SECTION ═══════════════════════════════════ -->
+            <div class="section-panel" id="analytics">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon" style="background:rgba(34,197,94,0.15);color:var(--success);">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </div>
+                        Website Analytics
+                    </div>
+                    <svg class="panel-toggle open" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body open">
+
+                    <!-- Stat Cards -->
+                    <div class="analytics-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(108,99,255,0.15);color:var(--accent);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <div>
+                                <div class="stat-value" id="stat-total-views">—</div>
+                                <div class="stat-label">Total Views</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(34,197,94,0.15);color:var(--success);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div>
+                                <div class="stat-value" id="stat-unique-visitors">—</div>
+                                <div class="stat-label">Unique Visitors</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(240,180,41,0.15);color:var(--gold);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <div>
+                                <div class="stat-value" id="stat-today-views">—</div>
+                                <div class="stat-label">Today's Views</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="analytics-charts-row">
+                        <!-- 7 Day Bar Chart -->
+                        <div class="analytics-chart-card">
+                            <h3 class="chart-title">Last 7 Days</h3>
+                            <div class="bar-chart" id="analytics-bar-chart"></div>
+                        </div>
+                        <!-- Device Breakdown -->
+                        <div class="analytics-chart-card analytics-chart-card-small">
+                            <h3 class="chart-title">Devices</h3>
+                            <div class="device-breakdown" id="analytics-devices"></div>
+                        </div>
+                    </div>
+
+                    <!-- Top Pages -->
+                    <div class="analytics-chart-card" style="margin-top:18px;">
+                        <h3 class="chart-title">Top Pages</h3>
+                        <div id="analytics-top-pages" class="top-pages-list"></div>
+                    </div>
+
+                    <!-- Recent Visits Table -->
+                    <div class="analytics-chart-card" style="margin-top:18px;">
+                        <h3 class="chart-title">Recent Visitors</h3>
+                        <div class="analytics-table-wrap">
+                            <table class="analytics-table" id="analytics-recent-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Page</th>
+                                        <th>Device</th>
+                                        <th>Browser</th>
+                                        <th>IP</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

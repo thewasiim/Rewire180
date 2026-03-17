@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
 const jwt = require('jsonwebtoken');
 const db = require('../database');
-const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 
 const JWT_SECRET = process.env.JWT_SECRET || 'rewire180-super-secret-key-change-in-production';
+
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 function requireAuth(req, res, next) {
     const auth = req.headers.authorization;
@@ -15,33 +21,57 @@ function requireAuth(req, res, next) {
     catch { return res.status(401).json({ error: 'Invalid or expired token' }); }
 }
 
-const uploadsDir = path.join(__dirname, '..', 'uploads');
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, uploadsDir),
-    filename: (req, file, cb) => {
-        const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        cb(null, unique + path.extname(file.originalname));
-    }
+// Use memory storage instead of disk (serverless compatible)
+const upload = multer({
+    storage: multer.memoryStorage(),
+    fileFilter: (req, file, cb) => {
+        if (/\.(mp4|mov|avi|webm|jpg|jpeg|png|gif|webp)$/i.test(file.originalname)) cb(null, true);
+        else cb(new Error('Only video and image files are allowed'), false);
+    },
+    limits: { fileSize: 500 * 1024 * 1024 } // 500MB
 });
 
-const fileFilter = (req, file, cb) => {
-    if (/\.(mp4|mov|avi|webm|jpg|jpeg|png|gif|webp)$/i.test(file.originalname)) cb(null, true);
-    else cb(new Error('Only video and image files are allowed'), false);
-};
-
-const upload = multer({ storage, fileFilter, limits: { fileSize: 500 * 1024 * 1024 } });
-
 // POST /api/upload
-router.post('/', requireAuth, upload.single('file'), (req, res) => {
+router.post('/', requireAuth, upload.single('file'), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
-    const publicUrl = `/uploads/${req.file.filename}`;
-    const { contentKey } = req.body;
-    if (contentKey) db.updateContent(contentKey, publicUrl);
+    try {
+        // Determine resource type based on mimetype
+        const resourceType = req.file.mimetype.startsWith('video/') ? 'video' : 'image';
 
-    res.json({ success: true, url: publicUrl, filename: req.file.filename, originalName: req.file.originalname, size: req.file.size });
+        // Upload to Cloudinary
+        const result = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+                {
+                    folder: 'rewire180',
+                    resource_type: resourceType,
+                    public_id: `${Date.now()}-${Math.round(Math.random() * 1e9)}`
+                },
+                (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                }
+            );
+            uploadStream.end(req.file.buffer);
+        });
+
+        const publicUrl = result.secure_url;
+
+        // Update content in DB if contentKey provided
+        const { contentKey } = req.body;
+        if (contentKey) await db.updateContent(contentKey, publicUrl);
+
+        res.json({
+            success: true,
+            url: publicUrl,
+            filename: req.file.originalname,
+            originalName: req.file.originalname,
+            size: req.file.size
+        });
+    } catch (err) {
+        console.error('Cloudinary upload error:', err);
+        res.status(500).json({ error: 'Failed to upload file to cloud storage' });
+    }
 });
 
 // Multer error handler

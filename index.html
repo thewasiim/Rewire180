@@ -443,6 +443,22 @@
     <script src="src/js/scripts.js" defer></script>
     <script src="src/js/navbar.js" defer></script>
 
+    <!-- Analytics Tracker -->
+    <script>
+        (function() {
+            try {
+                fetch('/api/analytics/track', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        page: window.location.pathname,
+                        referrer: document.referrer || ''
+                    })
+                }).catch(function(){});
+            } catch(e) {}
+        })();
+    </script>
+
 </body>
 
 </html>
