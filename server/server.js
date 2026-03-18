@@ -1,7 +1,7 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 
 // ─── INIT DATABASE (must be before routes) ────────────────────────────────────
 require('./database');
@@ -27,9 +27,10 @@ router.use('/content', require('./routes/content'));
 router.use('/upload', require('./routes/upload'));
 router.use('/analytics', require('./routes/analytics'));
 
-// Attach the router to both the root and the netlify functions path
+// Attach the router to handle all possible path patterns
 app.use('/api', router);
 app.use('/.netlify/functions/api', router);
+app.use('/', router); // fallback for serverless-http path stripping
 
 // ─── CATCH-ALL (local dev only) ───────────────────────────────────────────────
 if (process.env.NODE_ENV !== 'production') {
