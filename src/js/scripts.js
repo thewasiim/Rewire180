@@ -186,6 +186,10 @@ function initVideoReviewsSwiper(totalSlides) {
                 speed: 800,
                 autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
                 pagination: { el: '.video-reviews-pagination', clickable: true },
+                navigation: {
+                    nextEl: '.video-reviews-swiper .swiper-button-next',
+                    prevEl: '.video-reviews-swiper .swiper-button-prev',
+                },
                 breakpoints: {
                     320: { slidesPerView: 1, spaceBetween: 15 },
                     550: { slidesPerView: 2, spaceBetween: 20 },
@@ -273,7 +277,9 @@ function initTestimonialsSlider() {
         const steps = cards.length - getVisible() + 1;
         cur = Math.max(0, Math.min(n, steps - 1));
         const cardW = cards[0].offsetWidth + getGap();
-        track.style.transform = `translateX(-${cur * cardW}px)`;
+        prevTranslate = -(cur * cardW);
+        track.style.transform = `translateX(${prevTranslate}px)`;
+        track.style.transition = 'transform 0.3s ease-out';
         dotsEl.querySelectorAll('.ts-dot').forEach((d, i) =>
             d.classList.toggle('active', i === cur)
         );
@@ -283,6 +289,60 @@ function initTestimonialsSlider() {
     document.getElementById('tsNext').onclick = () => go(cur + 1);
 
     buildDots();
+
+    // Touch and Drag swipe logic
+    let isDragging = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let animationID;
+
+    track.addEventListener('mousedown', touchStart);
+    track.addEventListener('touchstart', touchStart, {passive: true});
+    track.addEventListener('mouseup', touchEnd);
+    track.addEventListener('touchend', touchEnd);
+    track.addEventListener('mouseleave', () => { if(isDragging) touchEnd() });
+    track.addEventListener('mousemove', touchMove);
+    track.addEventListener('touchmove', touchMove, {passive: true});
+
+    function touchStart(event) {
+        isDragging = true;
+        startPos = getPositionX(event);
+        animationID = requestAnimationFrame(animation);
+        track.style.transition = 'none';
+        track.style.cursor = 'grabbing';
+    }
+
+    function touchMove(event) {
+        if (isDragging) {
+            const currentPosition = getPositionX(event);
+            currentTranslate = prevTranslate + currentPosition - startPos;
+        }
+    }
+
+    function touchEnd() {
+        isDragging = false;
+        cancelAnimationFrame(animationID);
+        track.style.cursor = 'grab';
+        
+        const movedBy = currentTranslate - prevTranslate;
+        
+        if (movedBy < -50 && cur < cards.length - getVisible()) cur += 1;
+        else if (movedBy > 50 && cur > 0) cur -= 1;
+        
+        go(cur);
+    }
+
+    function getPositionX(event) {
+        return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+    }
+
+    function animation() {
+        if (isDragging) {
+            track.style.transform = `translateX(${currentTranslate}px)`;
+            requestAnimationFrame(animation);
+        }
+    }
 
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);

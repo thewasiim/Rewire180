@@ -45,7 +45,9 @@ router.post('/', requireAuth, upload.single('file'), async (req, res) => {
                 {
                     folder: 'rewire180',
                     resource_type: resourceType,
-                    public_id: `${Date.now()}-${Math.round(Math.random() * 1e9)}`
+                    public_id: `${Date.now()}-${Math.round(Math.random() * 1e9)}`,
+                    eager_async: true,
+                    flags: 'lossy'
                 },
                 (error, result) => {
                     if (error) reject(error);
