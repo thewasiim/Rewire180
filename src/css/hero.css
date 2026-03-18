@@ -2162,11 +2162,14 @@ body {
 }
 
 .video-reviews-pagination.swiper-pagination-bullets {
-  position: static;
-  display: flex;
+  position: static !important;
+  display: flex !important;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  width: auto;
+  width: auto !important;
+  margin: 0 !important;
+  transform: none !important;
 }
 
 .video-reviews-pagination .swiper-pagination-bullet {

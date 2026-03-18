@@ -183,7 +183,7 @@ function initVideoReviewsSwiper(totalSlides) {
                 spaceBetween: 20,
                 grabCursor: true,
                 loop: false,
-                speed: 800,
+                speed: 300,
                 autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
                 pagination: { el: '.video-reviews-pagination', clickable: true },
                 navigation: {
