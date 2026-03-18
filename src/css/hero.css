@@ -2147,13 +2147,38 @@ body {
 }
 
 /* Pagination Styling */
-.video-reviews-pagination {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  margin-top: 20px;
-  display: flex;
+/* ─── VIDEO SWIPER CUSTOM CONTROLS ─── */
+.video-ts-controls {
+  display: flex !important;
+  align-items: center;
   justify-content: center;
-  z-index: 10;
+  gap: 12px;
+  margin-top: 32px;
+  grid-column: 1 / -1; /* spans all columns if inside a grid */
+}
+
+.reviews-grid:not(.swiper-initialized) .video-ts-controls {
+  display: none !important;
+}
+
+.video-reviews-pagination.swiper-pagination-bullets {
+  position: static;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+}
+
+.video-reviews-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  margin: 0 !important;
+  opacity: 1;
+  transition: background 0.2s;
+}
+
+.video-reviews-pagination .swiper-pagination-bullet-active {
+  background: #a8e063;
 }

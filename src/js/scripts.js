@@ -187,8 +187,8 @@ function initVideoReviewsSwiper(totalSlides) {
                 autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
                 pagination: { el: '.video-reviews-pagination', clickable: true },
                 navigation: {
-                    nextEl: '.video-reviews-swiper .swiper-button-next',
-                    prevEl: '.video-reviews-swiper .swiper-button-prev',
+                    nextEl: '.video-reviews-swiper .video-swiper-next',
+                    prevEl: '.video-reviews-swiper .video-swiper-prev',
                 },
                 breakpoints: {
                     320: { slidesPerView: 1, spaceBetween: 15 },

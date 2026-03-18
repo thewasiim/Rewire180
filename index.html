@@ -195,10 +195,12 @@
                     </div>
 
                 </div>
-                <!-- Swiper navigation & pagination -->
-                <div class="swiper-button-prev" style="color: var(--accent);"></div>
-                <div class="swiper-button-next" style="color: var(--accent);"></div>
-                <div class="video-reviews-pagination"></div>
+                <!-- Swiper navigation & pagination styled like ts-controls -->
+                <div class="video-ts-controls">
+                    <button class="ts-btn video-swiper-prev">&#8592;</button>
+                    <div class="video-reviews-pagination"></div>
+                    <button class="ts-btn video-swiper-next">&#8594;</button>
+                </div>
             </div>
         </div>
     </section>
@@ -447,7 +449,7 @@
 
     <!-- Analytics Tracker -->
     <script>
-        (function() {
+        (function () {
             try {
                 fetch('/api/analytics/track', {
                     method: 'POST',
@@ -456,8 +458,8 @@
                         page: window.location.pathname,
                         referrer: document.referrer || ''
                     })
-                }).catch(function(){});
-            } catch(e) {}
+                }).catch(function () { });
+            } catch (e) { }
         })();
     </script>
 
