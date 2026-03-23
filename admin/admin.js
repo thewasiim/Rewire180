@@ -196,10 +196,12 @@ async function handleListUpload(input, listKey, index, mediaType) {
         // Update the local array and save the whole array back to DB
         if (mediaType === 'video') {
             contentData[listKey].value[index].video = url;
-            document.getElementById(`${tempKey}-preview`).querySelector('video').src = url;
+            const prevEl = document.getElementById(`${tempKey}-preview`);
+            if (prevEl) prevEl.querySelector('video').src = url;
         } else {
             contentData[listKey].value[index] = url;
-            document.getElementById(`${tempKey}-preview`).querySelector('img').src = url;
+            const prevEl = document.getElementById(`${tempKey}-preview`);
+            if (prevEl) prevEl.querySelector('img').src = url;
         }
 
         // Auto-save the array
@@ -210,6 +212,7 @@ async function handleListUpload(input, listKey, index, mediaType) {
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` },
             body: JSON.stringify({ updates })
         });
+        showToast('✅ Video uploaded and saved!', 'success');
     }
 }
 
