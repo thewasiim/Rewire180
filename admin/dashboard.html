@@ -77,14 +77,7 @@
                     </svg>
                     Video Reviews
                 </a>
-                <a href="#photo-reviews" onclick="showSection('photo-reviews', this)">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <circle cx="8.5" cy="8.5" r="1.5" />
-                        <polyline points="21 15 16 10 5 21" />
-                    </svg>
-                    Photo Reviews
-                </a>
+
                 <a href="#testimonials" onclick="showSection('testimonials', this)">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <circle cx="12" cy="8" r="4" />
@@ -507,50 +500,7 @@
                 </div>
             </div>
 
-            <!-- ═══ PHOTO REVIEWS ══════════════════════════════════════ -->
-            <div class="section-panel" id="photo-reviews">
-                <div class="panel-header" onclick="togglePanel(this)">
-                    <div class="panel-title">
-                        <div class="panel-icon">
-                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
-                                <rect x="3" y="3" width="18" height="18" rx="2" />
-                                <circle cx="8.5" cy="8.5" r="1.5" />
-                                <polyline points="21 15 16 10 5 21" />
-                            </svg>
-                        </div>
-                        Photo Reviews (Screenshots)
-                    </div>
-                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                </div>
-                <div class="panel-body">
-                    <div id="photo-reviews-container"></div>
-                    <div style="margin-top: 20px; margin-bottom: 20px;">
-                        <button class="btn btn-outline" onclick="addPhotoReview()">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                            Add New Photo Review
-                        </button>
-                    </div>
-                    <div class="panel-actions">
-                        <button class="btn btn-primary" onclick="saveSection('photo_reviews')">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
-                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-                                <polyline points="17 21 17 13 7 13 7 21" />
-                                <polyline points="7 3 7 8 15 8" />
-                            </svg>
-                            Save Photo Reviews
-                        </button>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- ═══ TESTIMONIALS ════════════════════════════════════════ -->
             <div class="section-panel" id="testimonials">

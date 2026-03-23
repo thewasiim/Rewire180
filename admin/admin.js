@@ -15,8 +15,7 @@ const SECTION_KEYS = {
     skills: ['skills_video_1', 'skills_text_1', 'skills_btn_1', 'skills_video_2', 'skills_text_2', 'skills_btn_2'],
     method_pricing: ['method_title', 'method_subtitle', 'method_features', 'method_price_1', 'method_price_2', 'method_btn_link'],
     vip_pricing: ['vip_title', 'vip_subtitle', 'vip_note', 'vip_description', 'vip_price_uk', 'vip_price_abroad', 'vip_btn_link'],
-    video_reviews: ['video_reviews_list'],
-    photo_reviews: ['photo_reviews_list']
+    video_reviews: ['video_reviews_list']
 };
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
@@ -42,7 +41,6 @@ async function loadContent() {
 
 function populateFields(data) {
     if (data.video_reviews_list) buildVideoReviews(data.video_reviews_list.value || []);
-    if (data.photo_reviews_list) buildPhotoReviews(data.photo_reviews_list.value || []);
 
     for (const [key, item] of Object.entries(data)) {
         if (item.type === 'list_string' || item.type === 'list_object') continue;
@@ -113,51 +111,11 @@ function buildVideoReviews(reviewsArr) {
       </div>
     </div>
   `).join('');
-}
-
-// ─── DYNAMIC: BUILD PHOTO REVIEWS ────────────────────────────────────────────
-function buildPhotoReviews(photosArr) {
-    const container = document.getElementById('photo-reviews-container');
-    if (!photosArr) { container.innerHTML = ''; return; }
-
-    container.innerHTML = `
-    <div class="fields-grid">
-      ${photosArr.map((filepath, i) => `
-        <div class="field-group" style="position:relative; border: 1px solid var(--border); padding: 10px; border-radius: 6px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
-            <label class="field-label">Screenshot ${i + 1}</label>
-            <button class="btn" style="background:transparent; color:var(--danger); padding:0; height:auto" onclick="removeReview('photo_reviews_list', ${i})">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-            </button>
-          </div>
-          <div class="upload-zone">
-            <input type="file" accept="image/*" onchange="handleListUpload(this, 'photo_reviews_list', ${i}, 'image')">
-            <div class="upload-label">
-              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            </div>
-            <div class="progress-bar-wrap" id="photo_reviews_list_${i}-progress"><div class="progress-bar"></div></div>
-            <div class="upload-preview" id="photo_reviews_list_${i}-preview" style="${filepath ? 'display:block' : 'display:none'}"><img src="${filepath || ''}" alt="Review ${i + 1}"></div>
-          </div>
-          <div style="margin-top:12px;">
-            <label class="field-label" style="font-size:0.8rem;">Or paste image URL (e.g. Cloudinary)</label>
-            <input type="text" placeholder="https://res.cloudinary.com/..." value="${filepath || ''}" onchange="updateListMedia('photo_reviews_list', ${i}, this.value, 'image')">
-          </div>
-          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current file: <span id="photo_reviews_list_${i}-current" style="color:var(--accent)">${filepath ? filepath.split('/').pop() : 'none'}</span></p>
-        </div>
-      `).join('')}
-    </div>
-  `;
-}
 
 // ─── LIST MANIPULATION (ADD/REMOVE/UPDATE) ────────────────────────────────────
 async function addVideoReview() {
     const newItem = { video: '', text: '' };
     await apiListAdd('video_reviews_list', newItem);
-}
-
-async function addPhotoReview() {
-    const newItem = '';
-    await apiListAdd('photo_reviews_list', newItem);
 }
 
 async function removeReview(listKey, index) {
