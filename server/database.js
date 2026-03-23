@@ -37,7 +37,6 @@ async function seedDatabase() {
 
   const defaultContent = [
     // Hero
-    { key: 'hero_video', value: 'src/assets/videos/hero-video.mp4', type: 'video', label: 'Hero Video', section: 'hero' },
     { key: 'hero_eyebrow', value: '180 DAY TRANSFORMATION PROGRAM', type: 'text', label: 'Hero Eyebrow Text', section: 'hero' },
     { key: 'hero_title', value: '180 days to transform your body and build the confidence that lasts.', type: 'text', label: 'Hero Title', section: 'hero' },
     { key: 'hero_subtitle', value: 'In 180 days I help busy professionals build a strong body and unshakeable confidence and mindset without sacrificing their time.', type: 'text', label: 'Hero Subtitle', section: 'hero' },
@@ -323,7 +322,7 @@ module.exports = {
       ip: v.ip,
       page: v.page || '/',
       device: /tablet|ipad/i.test((v.user_agent || '').toLowerCase()) ? 'Tablet'
-            : /mobile|android|iphone/i.test((v.user_agent || '').toLowerCase()) ? 'Mobile' : 'Desktop',
+        : /mobile|android|iphone/i.test((v.user_agent || '').toLowerCase()) ? 'Mobile' : 'Desktop',
       browser: extractBrowser(v.user_agent || ''),
       timestamp: v.created_at
     }));

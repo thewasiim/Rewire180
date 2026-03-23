@@ -11,7 +11,7 @@ let testimonialsData = [];
 
 // Section key maps
 const SECTION_KEYS = {
-    hero: ['hero_video', 'hero_eyebrow', 'hero_title', 'hero_subtitle', 'hero_cta_link'],
+    hero: ['hero_eyebrow', 'hero_title', 'hero_subtitle', 'hero_cta_link'],
     skills: ['skills_video_1', 'skills_text_1', 'skills_btn_1', 'skills_video_2', 'skills_text_2', 'skills_btn_2'],
     method_pricing: ['method_title', 'method_subtitle', 'method_features', 'method_price_1', 'method_price_2', 'method_btn_link'],
     vip_pricing: ['vip_title', 'vip_subtitle', 'vip_note', 'vip_description', 'vip_price_uk', 'vip_price_abroad', 'vip_btn_link'],
