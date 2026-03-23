@@ -364,6 +364,72 @@ async function saveSection(section) {
     }
 }
 
+// ─── HERO VIDEO MANAGEMENT ───────────────────────────────────────────────────
+async function updateHeroVideoURL() {
+    const videoURLInput = document.getElementById('hero_video');
+    const videoURL = videoURLInput.value.trim();
+
+    if (!videoURL) {
+        showToast('Please enter a video URL', 'error');
+        return;
+    }
+
+    try {
+        const res = await fetch('/api/content/bulk/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${TOKEN}`
+            },
+            body: JSON.stringify({ updates: { hero_video: videoURL } })
+        });
+
+        if (res.status === 401) { logout(); return; }
+
+        const data = await res.json();
+        if (data.success) {
+            contentData.hero_video.value = videoURL;
+            const currentEl = document.getElementById('hero_video-current');
+            if (currentEl) currentEl.textContent = videoURL;
+            showToast('✅ Hero video URL updated!', 'success');
+        } else {
+            showToast(data.error || 'Update failed', 'error');
+        }
+    } catch (err) {
+        showToast('Cannot reach server. Check if it\'s running.', 'error');
+    }
+}
+
+async function deleteHeroVideoURL() {
+    if (!confirm('Delete hero video URL? This action cannot be undone.')) return;
+
+    try {
+        const res = await fetch('/api/content/bulk/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${TOKEN}`
+            },
+            body: JSON.stringify({ updates: { hero_video: '' } })
+        });
+
+        if (res.status === 401) { logout(); return; }
+
+        const data = await res.json();
+        if (data.success) {
+            contentData.hero_video.value = '';
+            document.getElementById('hero_video').value = '';
+            const currentEl = document.getElementById('hero_video-current');
+            if (currentEl) currentEl.textContent = 'Not set';
+            showToast('✅ Hero video URL deleted!', 'success');
+        } else {
+            showToast(data.error || 'Delete failed', 'error');
+        }
+    } catch (err) {
+        showToast('Cannot reach server. Check if it\'s running.', 'error');
+    }
+}
+
 // ─── TESTIMONIALS ADMIN ────────────────────────────────────────────────────────
 function initTestimonialsAdmin(data) {
     const src = data || contentData || {};
