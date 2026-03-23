@@ -111,6 +111,7 @@ function buildVideoReviews(reviewsArr) {
       </div>
     </div>
   `).join('');
+}
 
 // ─── LIST MANIPULATION (ADD/REMOVE/UPDATE) ────────────────────────────────────
 async function addVideoReview() {
