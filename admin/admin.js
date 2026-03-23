@@ -100,7 +100,11 @@ function buildVideoReviews(reviewsArr) {
             <div class="progress-bar-wrap" id="video_reviews_list_${i}_video-progress"><div class="progress-bar"></div></div>
             <div class="upload-preview" id="video_reviews_list_${i}_video-preview" style="${rev.video ? 'display:block' : 'display:none'}"><video controls src="${rev.video || ''}"></video></div>
           </div>
-          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current: <span id="video_reviews_list_${i}_video-current" style="color:var(--accent)">${rev.video ? rev.video.split('/').pop() : 'loading...'}</span></p>
+          <div style="margin-top:12px;">
+            <label class="field-label" style="font-size:0.8rem;">Or paste video URL (e.g. Cloudinary)</label>
+            <input type="text" placeholder="https://res.cloudinary.com/..." value="${rev.video || ''}" onchange="updateListMedia('video_reviews_list', ${i}, this.value, 'video')">
+          </div>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current file: <span id="video_reviews_list_${i}_video-current" style="color:var(--accent)">${rev.video ? rev.video.split('/').pop() : 'none'}</span></p>
         </div>
         <div class="field-group field-full">
           <label class="field-label">Review Text</label>
@@ -134,7 +138,11 @@ function buildPhotoReviews(photosArr) {
             <div class="progress-bar-wrap" id="photo_reviews_list_${i}-progress"><div class="progress-bar"></div></div>
             <div class="upload-preview" id="photo_reviews_list_${i}-preview" style="${filepath ? 'display:block' : 'display:none'}"><img src="${filepath || ''}" alt="Review ${i + 1}"></div>
           </div>
-          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current: <span id="photo_reviews_list_${i}-current" style="color:var(--accent)">${filepath ? filepath.split('/').pop() : 'loading...'}</span></p>
+          <div style="margin-top:12px;">
+            <label class="field-label" style="font-size:0.8rem;">Or paste image URL (e.g. Cloudinary)</label>
+            <input type="text" placeholder="https://res.cloudinary.com/..." value="${filepath || ''}" onchange="updateListMedia('photo_reviews_list', ${i}, this.value, 'image')">
+          </div>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current file: <span id="photo_reviews_list_${i}-current" style="color:var(--accent)">${filepath ? filepath.split('/').pop() : 'none'}</span></p>
         </div>
       `).join('')}
     </div>
@@ -192,6 +200,27 @@ async function apiListAdd(listKey, item) {
 function updateListText(listKey, index, textVal) {
     if (contentData[listKey] && Array.isArray(contentData[listKey].value)) {
         contentData[listKey].value[index].text = textVal;
+    }
+}
+
+// Called directly by link input in video and photo reviews
+function updateListMedia(listKey, index, urlVal, mediaType) {
+    if (contentData[listKey] && Array.isArray(contentData[listKey].value)) {
+        if (mediaType === 'video') {
+            contentData[listKey].value[index].video = urlVal;
+            const previewWrap = document.getElementById(`${listKey}_${index}_video-preview`);
+            if (previewWrap) {
+                previewWrap.querySelector('video').src = urlVal;
+                previewWrap.style.display = urlVal ? 'block' : 'none';
+            }
+        } else {
+            contentData[listKey].value[index] = urlVal;
+            const previewWrap = document.getElementById(`${listKey}_${index}-preview`);
+            if (previewWrap) {
+                previewWrap.querySelector('img').src = urlVal;
+                previewWrap.style.display = urlVal ? 'block' : 'none';
+            }
+        }
     }
 }
 
@@ -308,6 +337,12 @@ async function handleUpload(input, contentKey, mediaType, overrideProgressKey = 
                     }
                 }
                 if (currentEl) currentEl.textContent = resp.filename;
+                
+                const urlInput = document.getElementById(targetKey);
+                if (urlInput && urlInput.tagName === 'INPUT' && urlInput.type === 'text') {
+                    urlInput.value = resp.url;
+                }
+                
                 showToast(`✅ ${file.name} uploaded successfully!`, 'success');
                 resolve(resp.url);
             } else {
@@ -337,7 +372,11 @@ async function saveSection(section) {
     const updates = {};
     for (const key of keys) {
         const el = document.getElementById(key);
-        if (el) updates[key] = el.value;
+        if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) {
+            updates[key] = el.value;
+        } else if (contentData[key] && (contentData[key].type === 'list_object' || contentData[key].type === 'list_string')) {
+            updates[key] = contentData[key].value;
+        }
     }
 
     try {
