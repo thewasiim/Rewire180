@@ -341,31 +341,6 @@ body {
   display: block;
 }
 
-/* MUTE TOGGLE BUTTON */
-.mute-toggle-btn {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  background: rgba(0, 0, 0, 0.55);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 18px;
-  backdrop-filter: blur(6px);
-  transition: background 0.2s;
-  z-index: 10;
-}
-
-.mute-toggle-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
 /* RESPONSIVE HERO VIDEO */
 @media(max-width: 1024px) {
   .hero-video {

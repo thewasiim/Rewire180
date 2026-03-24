@@ -77,7 +77,14 @@
                     Your browser does not support the video tag.
                 </video>
                 <!-- Mute toggle button -->
-                <button id="muteToggleBtn" class="mute-toggle-btn" onclick="toggleMuteAll()" aria-label="Toggle mute" title="Toggle mute">
+                <button id="muteToggleBtn" onclick="toggleMuteAll()" aria-label="Toggle mute" title="Toggle mute" style="
+                    position:absolute; bottom:12px; right:12px;
+                    background:rgba(0,0,0,0.55); border:none; border-radius:50%;
+                    width:40px; height:40px; cursor:pointer; display:flex;
+                    align-items:center; justify-content:center;
+                    color:#fff; font-size:18px; backdrop-filter:blur(6px);
+                    transition:background 0.2s; z-index:10;
+                " onmouseenter="this.style.background='rgba(0,0,0,0.8)'" onmouseleave="this.style.background='rgba(0,0,0,0.55)'">
                     🔇
                 </button>
             </div>
