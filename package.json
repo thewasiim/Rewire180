@@ -1,11 +1,10 @@
 {
-  "name": "rewire180-admin-server",
+  "name": "rewire180",
   "version": "1.0.0",
-  "description": "Backend server for Rewire180 admin panel",
-  "main": "server.js",
+  "description": "Rewire180 website with admin panel",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",
