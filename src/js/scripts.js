@@ -183,8 +183,16 @@ function initVideoReviewsSwiper(totalSlides) {
                 spaceBetween: 20,
                 grabCursor: true,
                 loop: false,
-                speed: 300,
-                autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+                speed: 400,
+                touchRatio: 1,
+                touchAngle: 45,
+                simulateTouch: true,
+                shortSwipes: true,
+                longSwipes: true,
+                longSwipesRatio: 0.3,
+                resistanceRatio: 0.7,
+                threshold: 5,
+                autoplay: { delay: 4000, disableOnInteraction: true, pauseOnMouseEnter: true },
                 pagination: { el: '.video-reviews-pagination', clickable: true },
                 navigation: {
                     nextEl: '.video-reviews-swiper .video-swiper-next',
@@ -290,66 +298,70 @@ function initTestimonialsSlider() {
 
     buildDots();
 
-    // Touch and Drag swipe logic
+    // ── Touch / Drag swipe logic ──────────────────────────────────────────────
     let isDragging = false;
-    let startPos = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
-    let animationID;
+    let startX = 0;
+    let startTranslate = 0;
+    let dragTranslate = 0;
 
-    track.addEventListener('mousedown', touchStart);
-    track.addEventListener('touchstart', touchStart, {passive: true});
-    track.addEventListener('mouseup', touchEnd);
-    track.addEventListener('touchend', touchEnd);
-    track.addEventListener('mouseleave', () => { if(isDragging) touchEnd() });
-    track.addEventListener('mousemove', touchMove);
-    track.addEventListener('touchmove', touchMove, {passive: true});
+    // Mouse events
+    track.addEventListener('mousedown', onDragStart);
+    track.addEventListener('mouseup', onDragEnd);
+    track.addEventListener('mouseleave', () => { if (isDragging) onDragEnd(); });
+    track.addEventListener('mousemove', onDragMove);
 
-    function touchStart(event) {
+    // Touch events — touchmove is NON-passive so we can preventDefault (stops page scroll during swipe)
+    track.addEventListener('touchstart', onDragStart, { passive: true });
+    track.addEventListener('touchend', onDragEnd, { passive: true });
+    track.addEventListener('touchcancel', onDragEnd, { passive: true });
+    track.addEventListener('touchmove', onTouchMove, { passive: false });
+
+    function getX(e) {
+        return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+    }
+
+    function onDragStart(e) {
         isDragging = true;
-        startPos = getPositionX(event);
-        animationID = requestAnimationFrame(animation);
+        startX = getX(e);
+        startTranslate = dragTranslate;
         track.style.transition = 'none';
-        track.style.cursor = 'grabbing';
+        if (e.type === 'mousedown') track.style.cursor = 'grabbing';
     }
 
-    function touchMove(event) {
-        if (isDragging) {
-            const currentPosition = getPositionX(event);
-            currentTranslate = prevTranslate + currentPosition - startPos;
-        }
+    function onTouchMove(e) {
+        if (!isDragging) return;
+        const diff = getX(e) - startX;
+        // Only block scroll if swiping horizontally
+        if (Math.abs(diff) > 5) e.preventDefault();
+        dragTranslate = startTranslate + diff;
+        track.style.transform = `translateX(${dragTranslate}px)`;
     }
 
-    function touchEnd() {
+    function onDragMove(e) {
+        if (!isDragging) return;
+        dragTranslate = startTranslate + (getX(e) - startX);
+        track.style.transform = `translateX(${dragTranslate}px)`;
+    }
+
+    function onDragEnd() {
+        if (!isDragging) return;
         isDragging = false;
-        cancelAnimationFrame(animationID);
         track.style.cursor = 'grab';
-        
-        const movedBy = currentTranslate - prevTranslate;
-        
-        if (movedBy < -50 && cur < cards.length - getVisible()) cur += 1;
-        else if (movedBy > 50 && cur > 0) cur -= 1;
-        
+        const movedBy = dragTranslate - startTranslate;
+        const threshold = 50;
+        if (movedBy < -threshold && cur < cards.length - getVisible()) cur += 1;
+        else if (movedBy > threshold && cur > 0) cur -= 1;
         go(cur);
-    }
-
-    function getPositionX(event) {
-        return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-    }
-
-    function animation() {
-        if (isDragging) {
-            track.style.transform = `translateX(${currentTranslate}px)`;
-            requestAnimationFrame(animation);
-        }
+        dragTranslate = -(cur * (cards[0].offsetWidth + getGap()));
     }
 
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            cur = 0; // reset position on resize
+            cur = 0;
             buildDots();
             go(0);
+            dragTranslate = 0;
         }, 200);
     });
 }
