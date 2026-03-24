@@ -72,10 +72,14 @@
 
             <!-- HERO VIDEO -->
             <div class="hero-video">
-                <video controls preload="metadata" id="hero-video-el">
+                <video autoplay muted playsinline loop preload="auto" id="hero-video-el">
                     <source id="hero-video-source" src="" type="video/mp4" data-content-key="hero_video">
                     Your browser does not support the video tag.
                 </video>
+                <!-- Mute toggle button -->
+                <button id="muteToggleBtn" class="mute-toggle-btn" onclick="toggleMuteAll()" aria-label="Toggle mute" title="Toggle mute">
+                    🔇
+                </button>
             </div>
 
             <!-- CTA -->
@@ -94,7 +98,7 @@
 
             <div class="video-card">
                 <div class="video-wrapper">
-                    <video controls preload="metadata" style="width: 100%; height: auto;" id="skills-video-1">
+                    <video autoplay muted playsinline loop preload="auto" style="width: 100%; height: auto;" id="skills-video-1">
                         <source src="src/assets/videos/hero-video.mp4" type="video/mp4"
                             data-content-key="skills_video_1">
                         Your browser does not support the video tag.
@@ -109,7 +113,7 @@
 
             <div class="video-card">
                 <div class="video-wrapper">
-                    <video controls preload="metadata" style="width: 100%; height: auto;" id="skills-video-2">
+                    <video autoplay muted playsinline loop preload="auto" style="width: 100%; height: auto;" id="skills-video-2">
                         <source src="src/assets/videos/hero-video.mp4" type="video/mp4"
                             data-content-key="skills_video_2">
                         Your browser does not support the video tag.
@@ -447,6 +451,22 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="src/js/scripts.js" defer></script>
     <script src="src/js/navbar.js" defer></script>
+
+    <!-- Mute toggle for autoplay videos -->
+    <script>
+        var _autoplayMuted = true;
+        var _autoplayVideoIds = ['hero-video-el', 'skills-video-1', 'skills-video-2'];
+
+        function toggleMuteAll() {
+            _autoplayMuted = !_autoplayMuted;
+            _autoplayVideoIds.forEach(function(id) {
+                var v = document.getElementById(id);
+                if (v) v.muted = _autoplayMuted;
+            });
+            var btn = document.getElementById('muteToggleBtn');
+            if (btn) btn.textContent = _autoplayMuted ? '🔇' : '🔊';
+        }
+    </script>
 
     <!-- Analytics Tracker -->
     <script>
