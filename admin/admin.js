@@ -100,7 +100,11 @@ function buildVideoReviews(reviewsArr) {
           </div>
           <div style="margin-top:12px;">
             <label class="field-label" style="font-size:0.8rem;">Or paste video URL (e.g. Cloudinary)</label>
-            <input type="text" placeholder="https://res.cloudinary.com/..." value="${rev.video || ''}" onchange="updateListMedia('video_reviews_list', ${i}, this.value, 'video')">
+            <div style="display:flex;gap:8px;margin-bottom:8px;">
+              <input type="text" id="video_reviews_list_${i}_input" placeholder="https://res.cloudinary.com/..." value="${rev.video || ''}" onchange="updateListMedia('video_reviews_list', ${i}, this.value, 'video')" style="flex:1;">
+              <button class="btn btn-primary" onclick="updateVideoReviewURL(${i})" style="padding:8px 16px;white-space:nowrap;">Add/Update</button>
+              <button class="btn btn-outline" onclick="deleteVideoReviewURL(${i})" style="padding:8px 16px;white-space:nowrap;color:var(--danger);">Delete</button>
+            </div>
           </div>
           <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current file: <span id="video_reviews_list_${i}_video-current" style="color:var(--accent)">${rev.video ? rev.video.split('/').pop() : 'none'}</span></p>
         </div>
@@ -427,6 +431,168 @@ async function deleteHeroVideoURL() {
         }
     } catch (err) {
         showToast('Cannot reach server. Check if it\'s running.', 'error');
+    }
+}
+
+async function updateSkillsVideoURL(num) {
+    const videoURLInput = document.getElementById(`skills_video_${num}`);
+    const videoURL = videoURLInput.value.trim();
+
+    if (!videoURL) {
+        showToast('Please enter a video URL', 'error');
+        return;
+    }
+
+    try {
+        const updateObj = {};
+        updateObj[`skills_video_${num}`] = videoURL;
+        
+        const res = await fetch('/api/content/bulk/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${TOKEN}`
+            },
+            body: JSON.stringify({ updates: updateObj })
+        });
+
+        if (res.status === 401) { logout(); return; }
+
+        const data = await res.json();
+        if (data.success) {
+            contentData[`skills_video_${num}`].value = videoURL;
+            const currentEl = document.getElementById(`skills_video_${num}-current`);
+            if (currentEl) currentEl.textContent = videoURL;
+            showToast('✅ Skills video URL updated!', 'success');
+        } else {
+            showToast(data.error || 'Update failed', 'error');
+        }
+    } catch (err) {
+        showToast('Cannot reach server. Check if it\'s running.', 'error');
+    }
+}
+
+async function deleteSkillsVideoURL(num) {
+    if (!confirm('Delete skills video URL? This action cannot be undone.')) return;
+
+    try {
+        const updateObj = {};
+        updateObj[`skills_video_${num}`] = '';
+
+        const res = await fetch('/api/content/bulk/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${TOKEN}`
+            },
+            body: JSON.stringify({ updates: updateObj })
+        });
+
+        if (res.status === 401) { logout(); return; }
+
+        const data = await res.json();
+        if (data.success) {
+            contentData[`skills_video_${num}`].value = '';
+            const inputEl = document.getElementById(`skills_video_${num}`);
+            if (inputEl) inputEl.value = '';
+            
+            const currentEl = document.getElementById(`skills_video_${num}-current`);
+            if (currentEl) currentEl.textContent = 'Not set';
+            
+            const previewWrap = document.getElementById(`skills_video_${num}-preview`);
+            if (previewWrap) {
+                previewWrap.style.display = 'none';
+                const vidEl = previewWrap.querySelector('video');
+                if (vidEl) vidEl.src = '';
+            }
+
+            showToast('✅ Skills video URL deleted!', 'success');
+        } else {
+            showToast(data.error || 'Delete failed', 'error');
+        }
+    } catch (err) {
+        showToast('Cannot reach server. Check if it\'s running.', 'error');
+    }
+}
+
+async function updateVideoReviewURL(index) {
+    const inputEl = document.getElementById(`video_reviews_list_${index}_input`);
+    if (!inputEl) return;
+    const videoURL = inputEl.value.trim();
+
+    if (!videoURL) {
+        showToast('Please enter a video URL', 'error');
+        return;
+    }
+
+    // Update state directly
+    updateListMedia('video_reviews_list', index, videoURL, 'video');
+    
+    // Save to API
+    try {
+        const updateObj = {};
+        updateObj['video_reviews_list'] = contentData['video_reviews_list'].value;
+        const res = await fetch('/api/content/bulk/update', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` },
+            body: JSON.stringify({ updates: updateObj })
+        });
+        
+        if (res.status === 401) { logout(); return; }
+        
+        const data = await res.json();
+        if (data.success) {
+            showToast('✅ Video Review URL updated!', 'success');
+            const currentEl = document.getElementById(`video_reviews_list_${index}_video-current`);
+            if (currentEl) currentEl.textContent = videoURL.split('/').pop() || 'Loading...';
+        } else {
+            showToast(data.error || 'Update failed', 'error');
+        }
+    } catch (e) {
+        showToast('Update failed', 'error');
+    }
+}
+
+async function deleteVideoReviewURL(index) {
+    if (!confirm('Delete video review URL? This action cannot be undone.')) return;
+    
+    const inputEl = document.getElementById(`video_reviews_list_${index}_input`);
+    if (inputEl) inputEl.value = '';
+    
+    // Update state in contentData and remove preview
+    if (contentData['video_reviews_list'] && contentData['video_reviews_list'].value[index]) {
+        contentData['video_reviews_list'].value[index].video = '';
+    }
+    
+    const previewWrap = document.getElementById(`video_reviews_list_${index}_video-preview`);
+    if (previewWrap) {
+        previewWrap.style.display = 'none';
+        const vidEl = previewWrap.querySelector('video');
+        if (vidEl) vidEl.src = '';
+    }
+
+    // Save to API
+    try {
+        const updateObj = {};
+        updateObj['video_reviews_list'] = contentData['video_reviews_list'].value;
+        const res = await fetch('/api/content/bulk/update', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` },
+            body: JSON.stringify({ updates: updateObj })
+        });
+        
+        if (res.status === 401) { logout(); return; }
+        
+        const data = await res.json();
+        if (data.success) {
+            showToast('✅ Video Review URL deleted!', 'success');
+            const currentEl = document.getElementById(`video_reviews_list_${index}_video-current`);
+            if (currentEl) currentEl.textContent = 'none';
+        } else {
+            showToast(data.error || 'Delete failed', 'error');
+        }
+    } catch (e) {
+        showToast('Delete failed', 'error');
     }
 }
 

@@ -361,7 +361,11 @@
                                 </div>
                                 <div style="margin-top:12px;">
                                     <label class="field-label" style="font-size:0.8rem;">Or paste video URL (e.g. Cloudinary)</label>
-                                    <input type="text" id="skills_video_1" placeholder="https://res.cloudinary.com/.../video/upload/...">
+                                    <div style="display:flex;gap:8px;margin-bottom:8px;">
+                                        <input type="text" id="skills_video_1" placeholder="https://res.cloudinary.com/.../video/upload/..." style="flex:1;">
+                                        <button class="btn btn-primary" onclick="updateSkillsVideoURL(1)" style="padding:8px 16px;white-space:nowrap;">Add/Update</button>
+                                        <button class="btn btn-outline" onclick="deleteSkillsVideoURL(1)" style="padding:8px 16px;white-space:nowrap;color:var(--danger);">Delete</button>
+                                    </div>
                                 </div>
                                 <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current file: <span
                                         id="skills_video_1-current" style="color:var(--accent)">loading...</span></p>
@@ -409,7 +413,11 @@
                                 </div>
                                 <div style="margin-top:12px;">
                                     <label class="field-label" style="font-size:0.8rem;">Or paste video URL (e.g. Cloudinary)</label>
-                                    <input type="text" id="skills_video_2" placeholder="https://res.cloudinary.com/.../video/upload/...">
+                                    <div style="display:flex;gap:8px;margin-bottom:8px;">
+                                        <input type="text" id="skills_video_2" placeholder="https://res.cloudinary.com/.../video/upload/..." style="flex:1;">
+                                        <button class="btn btn-primary" onclick="updateSkillsVideoURL(2)" style="padding:8px 16px;white-space:nowrap;">Add/Update</button>
+                                        <button class="btn btn-outline" onclick="deleteSkillsVideoURL(2)" style="padding:8px 16px;white-space:nowrap;color:var(--danger);">Delete</button>
+                                    </div>
                                 </div>
                                 <p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Current file: <span
                                         id="skills_video_2-current" style="color:var(--accent)">loading...</span></p>
