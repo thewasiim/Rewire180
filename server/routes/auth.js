@@ -65,8 +65,8 @@ router.post('/forgot-password', async (req, res) => {
 
     await db.setResetToken(admin.username, token, expiry);
 
-    // Use SITE_URL env var for deployed version, fallback to localhost
-    const baseUrl = process.env.SITE_URL || `http://localhost:${process.env.PORT || 3001}`;
+    // Use dynamic origin/host for deployed version, fallback to localhost
+    const baseUrl = process.env.SITE_URL || req.headers.origin || `${req.headers['x-forwarded-proto'] || req.protocol}://${req.headers.host}`;
     const resetLink = `${baseUrl}/admin/login.html?reset_token=${token}`;
 
     console.log('\n--- PASSWORD RESET REQUEST ---');
