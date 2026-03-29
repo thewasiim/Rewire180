@@ -5,7 +5,11 @@ const jwt = require('jsonwebtoken');
 const db = require('../database');
 const cloudinary = require('cloudinary').v2;
 
-const JWT_SECRET = process.env.JWT_SECRET || 'rewire180-super-secret-key-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET || (process.env.NODE_ENV !== 'production' ? 'rewire180-local-dev-secret' : null);
+if (!JWT_SECRET) {
+    console.error("FATAL ERROR: JWT_SECRET is not defined in production.");
+    process.exit(1);
+}
 
 // Configure Cloudinary
 cloudinary.config({

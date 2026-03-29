@@ -2,6 +2,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 
 // ─── INIT DATABASE (must be before routes) ────────────────────────────────────
 require('./database');
@@ -9,8 +10,42 @@ require('./database');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Trust front-facing proxy (like Netlify, Vercel, etc.)
+app.set('trust proxy', 1);
+
 // ─── MIDDLEWARE ───────────────────────────────────────────────────────────────
-app.use(cors());
+// Security Headers
+app.use(helmet({
+    contentSecurityPolicy: false, // Leave basic to not break inline assets/cloudinary yet
+    crossOriginResourcePolicy: false
+}));
+
+// CORS Configuration
+const corsOptions = {
+    origin: function (origin, callback) {
+        // In local development, allow all origins
+        if (process.env.NODE_ENV !== 'production') {
+            return callback(null, true);
+        }
+        
+        // In production, restrict to known domains
+        const allowedOrigins = [
+            process.env.SITE_URL, 
+            'https://rewire180.com', 
+            'https://www.rewire180.com'
+        ];
+        
+        // Allow requests with no origin (like mobile apps or curl requests) - conditionally
+        if (!origin || allowedOrigins.includes(origin) || origin.includes('rewire180.netlify.app')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

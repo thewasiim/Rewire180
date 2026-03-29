@@ -4,10 +4,29 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../database');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'rewire180-super-secret-key-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET || (process.env.NODE_ENV !== 'production' ? 'rewire180-local-dev-secret' : null);
+if (!JWT_SECRET) {
+    console.error("FATAL ERROR: JWT_SECRET is not defined in production.");
+    process.exit(1);
+}
+
+const rateLimit = require('express-rate-limit');
+
+// Rate limiters for sensitive endpoints
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Limit each IP to 5 login requests per window
+    message: { error: 'Too many login attempts from this IP, please try again after 15 minutes' }
+});
+
+const resetPasswordLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 3, // Limit each IP to 3 password reset requests per hour
+    message: { error: 'Too many password reset requests from this IP, please try again later' }
+});
 
 // POST /api/auth/login
-router.post('/login', async (req, res) => {
+router.post('/login', loginLimiter, async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password)
         return res.status(400).json({ error: 'Username and password are required' });
@@ -50,7 +69,7 @@ router.post('/change-password', async (req, res) => {
 });
 
 // POST /api/auth/forgot-password
-router.post('/forgot-password', async (req, res) => {
+router.post('/forgot-password', resetPasswordLimiter, async (req, res) => {
     const { email } = req.body;
     if (!email) return res.status(400).json({ error: 'Email is required' });
 
@@ -103,7 +122,7 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 // POST /api/auth/reset-password
-router.post('/reset-password', async (req, res) => {
+router.post('/reset-password', loginLimiter, async (req, res) => {
     const { token, newPassword } = req.body;
     if (!token || !newPassword || newPassword.length < 6) {
         return res.status(400).json({ error: 'Valid token and new password (min 6 chars) are required' });

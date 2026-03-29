@@ -19,13 +19,20 @@ async function seedDatabase() {
     .single();
 
   if (!existingAdmin) {
-    const hash = bcrypt.hashSync('admin123', 10);
+    const initialPassword = process.env.INITIAL_ADMIN_PASSWORD || (process.env.NODE_ENV !== 'production' ? 'admin123' : null);
+    
+    if (!initialPassword) {
+      console.error("FATAL ERROR: INITIAL_ADMIN_PASSWORD is not defined for production database seeding.");
+      process.exit(1);
+    }
+
+    const hash = bcrypt.hashSync(initialPassword, 10);
     await supabase.from('admin').insert({
       username: 'admin',
       password: hash,
       email: 'mwasim0048@gmail.com'
     });
-    console.log('✅ Default admin created (username: admin, password: admin123)');
+    console.log(`✅ Default admin created (username: admin, password: ${process.env.NODE_ENV === 'production' ? '[HIDDEN]' : initialPassword})`);
   }
 
   // Seed default content
