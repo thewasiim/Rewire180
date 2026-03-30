@@ -55,6 +55,11 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(express.static(projectRoot));
 }
 
+// ─── HEALTH CHECK ─────────────────────────────────────────────────────────────
+app.get('/', (req, res) => {
+    res.json({ status: 'ok', message: 'Rewire180 API is running 🚀', version: '1.0.0' });
+});
+
 // ─── API ROUTES ───────────────────────────────────────────────────────────────
 const router = express.Router();
 router.use('/auth', require('./routes/auth'));
@@ -65,17 +70,11 @@ router.use('/analytics', require('./routes/analytics'));
 // Attach the router to handle all possible path patterns
 app.use('/api', router);
 app.use('/.netlify/functions/api', router);
-app.use('/', router); // fallback for serverless-http path stripping
 
-// ─── CATCH-ALL (local dev only) ───────────────────────────────────────────────
-if (process.env.NODE_ENV !== 'production') {
-    app.get('*', (req, res) => {
-        if (req.path.startsWith('/api')) {
-            return res.status(404).json({ error: 'Not found' });
-        }
-        res.status(404).send('Page not found');
-    });
-}
+// ─── CATCH-ALL ────────────────────────────────────────────────────────────────
+app.use((req, res) => {
+    res.status(404).json({ error: 'Route not found' });
+});
 
 // ─── START SERVER ─────────────────────────────────────────────────────────────
 // Always listen — works for local dev, Railway, and any Node host.
