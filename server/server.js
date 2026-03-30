@@ -32,11 +32,12 @@ const corsOptions = {
         const allowedOrigins = [
             process.env.SITE_URL, 
             'https://rewire180.com', 
-            'https://www.rewire180.com'
+            'https://www.rewire180.com',
+            'https://rewire180-production.up.railway.app'
         ];
         
-        // Allow requests with no origin (like mobile apps or curl requests) - conditionally
-        if (!origin || allowedOrigins.includes(origin) || origin.includes('rewire180.netlify.app')) {
+        // Allow requests with no origin, known domains, or any netlify preview
+        if (!origin || allowedOrigins.includes(origin) || origin.includes('netlify.app') || origin.includes('netlify.com')) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
