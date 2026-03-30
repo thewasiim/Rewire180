@@ -50,14 +50,13 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ─── STATIC FILE SERVING (local dev only, Netlify serves these automatically) ─
-if (process.env.NODE_ENV !== 'production') {
-    const projectRoot = path.join(__dirname, '..');
-    app.use(express.static(projectRoot));
-}
+// ─── STATIC FILE SERVING ──────────────────────────────────────────────────────
+// Serve frontend assets in ALL environments (Netlify, Railway, Local)
+const projectRoot = path.join(__dirname, '..');
+app.use(express.static(projectRoot));
 
 // ─── HEALTH CHECK ─────────────────────────────────────────────────────────────
-app.get('/', (req, res) => {
+app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'Rewire180 API is running 🚀', version: '1.0.0' });
 });
 
@@ -74,7 +73,10 @@ app.use('/.netlify/functions/api', router);
 
 // ─── CATCH-ALL ────────────────────────────────────────────────────────────────
 app.use((req, res) => {
-    res.status(404).json({ error: 'Route not found' });
+    if (req.path.startsWith('/api')) {
+        return res.status(404).json({ error: 'Route not found' });
+    }
+    res.status(404).send('Page not found');
 });
 
 // ─── START SERVER ─────────────────────────────────────────────────────────────
