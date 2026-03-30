@@ -90,7 +90,7 @@ function buildVideoReviews(reviewsArr) {
         <div class="field-group field-full">
           <label class="field-label">Review Video</label>
           <div class="upload-zone">
-            <input type="file" accept="video/*" onchange="handleListUpload(this, 'video_reviews_list', ${i}, 'video')">
+            <input type="file" accept=".mp4" onchange="handleListUpload(this, 'video_reviews_list', ${i}, 'video')">
             <div class="upload-label">
               <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               <strong>Upload Review Video</strong>
@@ -260,6 +260,20 @@ async function compressImage(file) {
 async function handleUpload(input, contentKey, mediaType, overrideProgressKey = null) {
     let file = input.files[0];
     if (!file) return;
+
+    if (mediaType === 'video') {
+        if (file.type !== 'video/mp4' && !file.name.toLowerCase().endsWith('.mp4')) {
+            showToast('Only .mp4 videos are allowed', 'error');
+            input.value = '';
+            return null;
+        }
+        const MAX_SIZE = 250 * 1024 * 1024; // 250 MB
+        if (file.size > MAX_SIZE) {
+            showToast('Video size must be less than 250MB', 'error');
+            input.value = '';
+            return null;
+        }
+    }
 
     // Compress images to speed up upload
     if (file.type.startsWith('image/')) {

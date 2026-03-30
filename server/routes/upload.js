@@ -29,10 +29,10 @@ function requireAuth(req, res, next) {
 const upload = multer({
     storage: multer.memoryStorage(),
     fileFilter: (req, file, cb) => {
-        if (/\.(mp4|mov|avi|webm|jpg|jpeg|png|gif|webp)$/i.test(file.originalname)) cb(null, true);
-        else cb(new Error('Only video and image files are allowed'), false);
+        if (/\.mp4$/i.test(file.originalname) && file.mimetype === 'video/mp4') cb(null, true);
+        else cb(new Error('Only .mp4 video files are allowed'), false);
     },
-    limits: { fileSize: 500 * 1024 * 1024 } // 500MB
+    limits: { fileSize: 250 * 1024 * 1024 } // 250MB
 });
 
 // POST /api/upload
@@ -82,7 +82,7 @@ router.post('/', requireAuth, upload.single('file'), async (req, res) => {
 
 // Multer error handler
 router.use((err, req, res, next) => {
-    if (err.code === 'LIMIT_FILE_SIZE') return res.status(400).json({ error: 'File too large. Max: 500MB.' });
+    if (err.code === 'LIMIT_FILE_SIZE') return res.status(400).json({ error: 'File too large. Max: 250MB.' });
     res.status(400).json({ error: err.message });
 });
 

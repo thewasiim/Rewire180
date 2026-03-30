@@ -4,3 +4,9 @@ node_modules/
 *.env
 **/*.env
 server/rewire180-db.json
+
+# Large video files — store on Cloudinary, not in git
+src/assets/videos/*.mp4
+src/assets/videos/*.mov
+src/assets/videos/*.avi
+src/assets/videos/*.webm
