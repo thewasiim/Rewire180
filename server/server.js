@@ -77,10 +77,13 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
-// ─── START SERVER (local dev only, not used on Netlify) ───────────────────────
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log('\n🚀 Rewire180 Server Running!');
+// ─── START SERVER ─────────────────────────────────────────────────────────────
+// Always listen — works for local dev, Railway, and any Node host.
+// (Netlify/Vercel use serverless-http via module.exports, not app.listen)
+app.listen(PORT, () => {
+    console.log('\n🚀 Rewire180 Server Running!');
+    console.log(`   Port: ${PORT}`);
+    if (process.env.NODE_ENV !== 'production') {
         console.log(`   Main website:  http://localhost:${PORT}`);
         console.log(`   Admin panel:   http://localhost:${PORT}/admin/login.html`);
         console.log('');
@@ -91,8 +94,8 @@ if (process.env.NODE_ENV !== 'production') {
         console.log(`   POST /api/upload           — Upload file (admin only)`);
         console.log(`   POST /api/analytics/track  — Track visitor`);
         console.log(`   GET  /api/analytics        — Get analytics (admin only)`);
-        console.log('');
-    });
-}
+    }
+    console.log('');
+});
 
 module.exports = app;
