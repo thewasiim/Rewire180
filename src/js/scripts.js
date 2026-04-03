@@ -1,4 +1,16 @@
 // ─── CONTENT LOADER — fetch from backend API and apply to page ────────────────
+
+// XSS sanitizer — escape admin-provided text before injecting into DOM
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 (async function loadDynamicContent() {
     try {
         const res = await fetch('/api/content');
@@ -68,7 +80,7 @@ function applyContent(data) {
             const listEl = document.getElementById('method-features-list');
             if (listEl) {
                 const lines = value.split('\n').filter(l => l.trim());
-                listEl.innerHTML = lines.map(l => `<li>${l.trim()}</li>`).join('');
+                listEl.innerHTML = lines.map(l => `<li>${escapeHtml(l.trim())}</li>`).join('');
             }
             continue;
         }
@@ -157,10 +169,10 @@ function renderVideoReviewsList(videosArr) {
     wrapper.innerHTML = videosArr.map((rev, i) => `
     <div class="swiper-slide review-stack">
         <div class="review-card text-card">
-            <p>${rev.text || ''}</p>
+            <p>${escapeHtml(rev.text)}</p>
         </div>
         <div class="review-card video-card">
-            <video src="${rev.video || ''}" controls preload="metadata"></video>
+            <video src="${escapeHtml(rev.video)}" controls preload="metadata"></video>
         </div>
     </div>
   `).join('');
@@ -232,17 +244,17 @@ function renderTestimonialsList(testimonialsArr) {
 
     track.innerHTML = activeTestimonials.map(t => `
         <div class="ts-card">
-            <div class="ts-badge">${t.badge || ''}</div>
+            <div class="ts-badge">${escapeHtml(t.badge)}</div>
             <div class="ts-quote">&ldquo;</div>
-            <p class="ts-text">${t.text || ''}</p>
+            <p class="ts-text">${escapeHtml(t.text)}</p>
             <div class="ts-footer">
-                <div class="ts-avatar" style="background:${t.color || '#3B82F6'};">
-                    ${(t.initials || '').toUpperCase()}
+                <div class="ts-avatar" style="background:${escapeHtml(t.color) || '#3B82F6'};">
+                    ${escapeHtml((t.initials || '').toUpperCase())}
                 </div>
                 <div>
-                    <div class="ts-name">${t.name || ''}</div>
-                    <div class="ts-meta">${t.meta || ''}</div>
-                    <div class="ts-stars">${t.stars || ''}</div>
+                    <div class="ts-name">${escapeHtml(t.name)}</div>
+                    <div class="ts-meta">${escapeHtml(t.meta)}</div>
+                    <div class="ts-stars">${escapeHtml(t.stars)}</div>
                 </div>
             </div>
         </div>

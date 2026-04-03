@@ -119,8 +119,12 @@ async function seedDatabase() {
   }
 }
 
-// Run seed on require
-seedDatabase().catch(err => console.error('Seed error:', err));
+// Run seed only in development or when SEED_ON_START=true
+if (process.env.NODE_ENV !== 'production' || process.env.SEED_ON_START === 'true') {
+    seedDatabase().catch(err => console.error('Seed error:', err));
+} else {
+    console.log('ℹ️  Skipping database seeding in production (set SEED_ON_START=true to override)');
+}
 
 // ─── HELPER: parse JSONB value ────────────────────────────────────────────────
 function parseValue(raw) {
@@ -152,6 +156,16 @@ module.exports = {
       .from('admin')
       .select('*')
       .eq('email', email)
+      .single();
+    return data;
+  },
+
+  // Get admin by reset token
+  getAdminByResetToken: async (token) => {
+    const { data } = await supabase
+      .from('admin')
+      .select('*')
+      .eq('reset_token', token)
       .single();
     return data;
   },
@@ -205,9 +219,24 @@ module.exports = {
     return data && data.length > 0;
   },
 
-  // Bulk update
+  // Allowed content keys to prevent arbitrary writes
+  ALLOWED_CONTENT_KEYS: [
+    'hero_eyebrow', 'hero_title', 'hero_subtitle', 'hero_cta_link', 'hero_video',
+    'skills_video_1', 'skills_text_1', 'skills_btn_1',
+    'skills_video_2', 'skills_text_2', 'skills_btn_2',
+    'video_reviews_list', 'photo_reviews_list', 'testimonials_list',
+    'method_title', 'method_subtitle', 'method_features', 'method_price_1', 'method_price_2', 'method_btn_link',
+    'vip_title', 'vip_subtitle', 'vip_note', 'vip_description', 'vip_price_uk', 'vip_price_abroad', 'vip_btn_link'
+  ],
+
+  // Bulk update (with key allowlist enforcement)
   bulkUpdate: async (updates) => {
+    const allowed = module.exports.ALLOWED_CONTENT_KEYS;
     for (const [key, value] of Object.entries(updates)) {
+      if (!allowed.includes(key)) {
+        console.warn(`⚠️  Rejected unknown content key: ${key}`);
+        continue;
+      }
       await supabase
         .from('content')
         .update({ value: JSON.stringify(value), updated_at: new Date().toISOString() })

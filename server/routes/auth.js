@@ -46,7 +46,9 @@ router.post('/login', loginLimiter, async (req, res) => {
 router.post('/change-password', async (req, res) => {
     const auth = req.headers.authorization;
     if (!auth?.startsWith('Bearer ')) return res.status(401).json({ error: 'Not authenticated' });
-    try { jwt.verify(auth.split(' ')[1], JWT_SECRET); } catch { return res.status(401).json({ error: 'Invalid token' }); }
+    
+    let decoded;
+    try { decoded = jwt.verify(auth.split(' ')[1], JWT_SECRET); } catch { return res.status(401).json({ error: 'Invalid token' }); }
 
     const { currentPassword, newPassword } = req.body;
 
@@ -58,13 +60,12 @@ router.post('/change-password', async (req, res) => {
         return res.status(400).json({ error: 'New password must be at least 6 characters' });
     }
 
-    const decoded = jwt.decode(auth.split(' ')[1]);
     const admin = await db.getAdmin(decoded.username);
     if (!admin || !bcrypt.compareSync(currentPassword, admin.password)) {
         return res.status(401).json({ error: 'Incorrect current password' });
     }
 
-    await db.updatePassword('admin', bcrypt.hashSync(newPassword, 10));
+    await db.updatePassword(decoded.username, bcrypt.hashSync(newPassword, 10));
     res.json({ message: 'Password updated successfully' });
 });
 
@@ -88,10 +89,8 @@ router.post('/forgot-password', resetPasswordLimiter, async (req, res) => {
     const baseUrl = process.env.SITE_URL || req.headers.origin || `${req.headers['x-forwarded-proto'] || req.protocol}://${req.headers.host}`;
     const resetLink = `${baseUrl}/admin/login.html?reset_token=${token}`;
 
-    console.log('\n--- PASSWORD RESET REQUEST ---');
-    console.log(`Email: ${email}`);
-    console.log(`Reset Link: ${resetLink}`);
-    console.log('------------------------------\n');
+    console.log(`\n--- PASSWORD RESET REQUEST for ${email} ---`);
+    // Note: Reset link/token NOT logged for security
 
     try {
         const nodemailer = require('nodemailer');
@@ -128,7 +127,8 @@ router.post('/reset-password', loginLimiter, async (req, res) => {
         return res.status(400).json({ error: 'Valid token and new password (min 6 chars) are required' });
     }
 
-    const admin = await db.getAdmin('admin');
+    // Find admin by reset token instead of hardcoded username
+    const admin = await db.getAdminByResetToken(token);
 
     if (!admin || !admin.reset_token || admin.reset_token !== token) {
         return res.status(400).json({ error: 'Invalid or expired reset token' });
@@ -138,8 +138,8 @@ router.post('/reset-password', loginLimiter, async (req, res) => {
         return res.status(400).json({ error: 'Reset token has expired' });
     }
 
-    await db.updatePassword('admin', bcrypt.hashSync(newPassword, 10));
-    await db.clearResetToken('admin');
+    await db.updatePassword(admin.username, bcrypt.hashSync(newPassword, 10));
+    await db.clearResetToken(admin.username);
 
     res.json({ message: 'Password has been reset successfully' });
 });

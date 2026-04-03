@@ -33,8 +33,16 @@ router.put('/bulk/update', requireAuth, async (req, res) => {
     const { updates } = req.body;
     if (!updates || typeof updates !== 'object')
         return res.status(400).json({ error: 'updates object required' });
+    
+    // Filter out unknown keys before passing to db
+    const allowed = db.ALLOWED_CONTENT_KEYS;
+    const rejected = Object.keys(updates).filter(k => !allowed.includes(k));
+    if (rejected.length > 0) {
+        console.warn(`⚠️  Rejected unknown content keys in bulk update: ${rejected.join(', ')}`);
+    }
+    
     await db.bulkUpdate(updates);
-    res.json({ success: true, updated: Object.keys(updates).length });
+    res.json({ success: true, updated: Object.keys(updates).length - rejected.length });
 });
 
 // PUT /api/content/:key — single update (admin only)
@@ -42,6 +50,12 @@ router.put('/:key', requireAuth, async (req, res) => {
     const { key } = req.params;
     const { value } = req.body;
     if (value === undefined) return res.status(400).json({ error: 'Value is required' });
+    
+    // Validate key is allowed
+    if (!db.ALLOWED_CONTENT_KEYS.includes(key)) {
+        return res.status(400).json({ error: `Content key "${key}" is not allowed` });
+    }
+    
     const ok = await db.updateContent(key, value);
     if (!ok) return res.status(404).json({ error: `Content key "${key}" not found` });
     res.json({ success: true, key, value });

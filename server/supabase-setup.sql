@@ -34,12 +34,26 @@ CREATE TABLE IF NOT EXISTS analytics (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Disable RLS (Row Level Security) so our service_role key works freely
+-- Enable RLS on all tables
 ALTER TABLE admin ENABLE ROW LEVEL SECURITY;
 ALTER TABLE content ENABLE ROW LEVEL SECURITY;
 ALTER TABLE analytics ENABLE ROW LEVEL SECURITY;
 
--- Allow full access for service_role
-CREATE POLICY "Service role full access" ON admin FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Service role full access" ON content FOR ALL USING (true) WITH CHECK (true);
-CREATE POLICY "Service role full access" ON analytics FOR ALL USING (true) WITH CHECK (true);
+-- Drop old insecure policies (USING true = anyone can read/write!)
+DROP POLICY IF EXISTS "Service role full access" ON admin;
+DROP POLICY IF EXISTS "Service role full access" ON content;
+DROP POLICY IF EXISTS "Service role full access" ON analytics;
+
+-- Secure policies: ONLY service_role can access (our backend uses service_role key)
+-- This blocks anon/authenticated roles from direct Supabase access
+CREATE POLICY "service_role_admin" ON admin FOR ALL
+  USING (auth.role() = 'service_role')
+  WITH CHECK (auth.role() = 'service_role');
+
+CREATE POLICY "service_role_content" ON content FOR ALL
+  USING (auth.role() = 'service_role')
+  WITH CHECK (auth.role() = 'service_role');
+
+CREATE POLICY "service_role_analytics" ON analytics FOR ALL
+  USING (auth.role() = 'service_role')
+  WITH CHECK (auth.role() = 'service_role');
