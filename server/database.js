@@ -102,6 +102,13 @@ async function seedDatabase() {
     { key: 'vip_price_uk', value: '£10,000', type: 'text', label: 'VIP Price (UK)', section: 'vip_pricing' },
     { key: 'vip_price_abroad', value: '£20,000', type: 'text', label: 'VIP Price (Abroad)', section: 'vip_pricing' },
     { key: 'vip_btn_link', value: '#', type: 'text', label: 'VIP Button Link', section: 'vip_pricing' },
+
+    // Support Page
+    { key: 'support_email', value: 'support@rewire180.com', type: 'text', label: 'Support Email', section: 'support' },
+    { key: 'support_phone', value: '+91 98765 43210', type: 'text', label: 'Support Phone', section: 'support' },
+    { key: 'support_response_time', value: '24-48 hours', type: 'text', label: 'Response Time', section: 'support' },
+    { key: 'support_hours', value: 'Monday - Friday, 9 AM - 6 PM GMT', type: 'text', label: 'Working Hours', section: 'support' },
+    { key: 'support_intro', value: "We're here to help! If you have questions about your coaching program, technical issues, or general inquiries, please reach out to us.", type: 'text', label: 'Support Intro Text', section: 'support' },
   ];
 
   const toSeed = defaultContent.filter(c => !existingKeys.includes(c.key));
@@ -226,7 +233,8 @@ module.exports = {
     'skills_video_2', 'skills_text_2', 'skills_btn_2',
     'video_reviews_list', 'photo_reviews_list', 'testimonials_list',
     'method_title', 'method_subtitle', 'method_features', 'method_price_1', 'method_price_2', 'method_btn_link',
-    'vip_title', 'vip_subtitle', 'vip_note', 'vip_description', 'vip_price_uk', 'vip_price_abroad', 'vip_btn_link'
+    'vip_title', 'vip_subtitle', 'vip_note', 'vip_description', 'vip_price_uk', 'vip_price_abroad', 'vip_btn_link',
+    'support_email', 'support_phone', 'support_response_time', 'support_hours', 'support_intro'
   ],
 
   // Bulk update (with key allowlist enforcement)

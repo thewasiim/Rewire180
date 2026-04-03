@@ -73,8 +73,8 @@ function applyContent(data) {
         }
 
         // ── TEXT/LINK elements ────────────────────────────────────────────────────
-        if (!textEl) continue;
-
+        const textEls = document.querySelectorAll(`[data-content-key="${key}"]`);
+        
         // Special: method_features — render as a list
         if (key === 'method_features') {
             const listEl = document.getElementById('method-features-list');
@@ -107,8 +107,16 @@ function applyContent(data) {
             continue;
         }
 
-        // Default: set textContent
-        textEl.textContent = value;
+        // Support Links
+        if (key === 'support_email') {
+            document.getElementById('support-email-link')?.setAttribute('href', `mailto:${value}`);
+        }
+        if (key === 'support_phone') {
+            document.getElementById('support-phone-link')?.setAttribute('href', `tel:${value}`);
+        }
+
+        // Default: set textContent using querySelectorAll so multiple places can use the same key
+        textEls.forEach(el => el.textContent = value);
     }
 }
 

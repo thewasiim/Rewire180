@@ -100,6 +100,15 @@
                     </svg>
                     VIP Coaching
                 </a>
+                <div class="nav-section-title">Pages</div>
+                <a href="#support" onclick="showSection('support', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                    Support Page
+                </a>
                 <div class="nav-section-title">Account</div>
                 <a href="#" onclick="openModal()">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -657,6 +666,62 @@
                                 <polyline points="7 3 7 8 15 8" />
                             </svg>
                             Save VIP Pricing
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ SUPPORT PAGE ════════════════════════════════════════ -->
+            <div class="section-panel" id="support">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon" style="background:rgba(56,189,248,0.15);color:#38BDF8;">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </div>
+                        Support Page Content
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <div class="fields-grid">
+                        <div class="field-group">
+                            <label class="field-label">Support Email</label>
+                            <input type="email" id="support_email" placeholder="support@rewire180.com">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Phone Number</label>
+                            <input type="text" id="support_phone" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Response Time</label>
+                            <input type="text" id="support_response_time" placeholder="24-48 hours">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Working Hours</label>
+                            <input type="text" id="support_hours" placeholder="Monday - Friday, 9 AM - 6 PM GMT">
+                        </div>
+                        <div class="field-group field-full">
+                            <label class="field-label">Intro Text</label>
+                            <textarea id="support_intro" rows="3" placeholder="We're here to help! If you have questions..."></textarea>
+                        </div>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('support')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Support Page
                         </button>
                     </div>
                 </div>
