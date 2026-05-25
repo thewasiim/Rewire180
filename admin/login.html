@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewire180 — Admin Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body class="login-body">
+
+    <div class="login-bg">
+        <div class="login-glow"></div>
+    </div>
+
+    <div class="login-card">
+        <div class="login-logo">
+            Rewire <span>180</span>
+        </div>
+        <p class="login-subtitle">Admin Panel</p>
+
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="admin" autocomplete="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password" placeholder="••••••••"
+                        autocomplete="current-password" required>
+                    <button type="button" class="toggle-pw" id="togglePw">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="login-error" id="loginError"></div>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+                <span class="btn-text">Sign In</span>
+                <span class="btn-spinner" style="display:none">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        class="spin">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                    </svg>
+                </span>
+            </button>
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="#" onclick="showForgotForm()"
+                    style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none;">Forgot Password?</a>
+            </div>
+        </form>
+
+        <!-- Forgot Password Form -->
+        <form class="login-form" id="forgotForm" style="display: none;">
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem; text-align: center;">Enter
+                your email to receive a password reset link.</p>
+            <div class="form-group">
+                <label for="forgotEmail">Admin Email</label>
+                <input type="email" id="forgotEmail" name="email" placeholder="admin@example.com" required>
+            </div>
+
+            <div class="login-error" id="forgotMessage"></div>
+
+            <button type="submit" class="login-btn" id="forgotBtn">
+                <span class="btn-text">Send Reset Link</span>
+                <span class="btn-spinner" style="display:none">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        class="spin">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                    </svg>
+                </span>
+            </button>
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="#" onclick="showLoginForm()"
+                    style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none;">&larr; Back to
+                    Login</a>
+            </div>
+        </form>
+
+        <!-- Set New Password Form -->
+        <form class="login-form" id="resetForm" style="display: none;">
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem; text-align: center;">Set your
+                new password.</p>
+            <div class="form-group">
+                <label for="resetPassword">New Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="resetPassword" placeholder="••••••••" required>
+                    <button type="button" class="toggle-pw" id="toggleNewPw">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resetConfirmPassword">Confirm New Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="resetConfirmPassword" placeholder="••••••••" required>
+                    <button type="button" class="toggle-pw" id="toggleConfirmPw">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="login-error" id="resetMessage"></div>
+
+            <button type="submit" class="login-btn" id="resetBtn">
+                <span class="btn-text">Reset Password</span>
+                <span class="btn-spinner" style="display:none">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        class="spin">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                    </svg>
+                </span>
+            </button>
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="#" onclick="showLoginForm()"
+                    style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none;">&larr; Back to
+                    Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const API = '';  // empty = same origin
+
+        // Toggle password visibility helpers
+        function setupToggle(btnId, inputId) {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const pw = document.getElementById(inputId);
+                    pw.type = pw.type === 'password' ? 'text' : 'password';
+                });
+            }
+        }
+        setupToggle('togglePw', 'password');
+        setupToggle('toggleNewPw', 'resetPassword');
+        setupToggle('toggleConfirmPw', 'resetConfirmPassword');
+
+        const loginForm = document.getElementById('loginForm');
+        const forgotForm = document.getElementById('forgotForm');
+        const resetForm = document.getElementById('resetForm');
+        const loginError = document.getElementById('loginError');
+
+        // Check URL for reset token
+        const urlParams = new URLSearchParams(window.location.search);
+        const resetToken = urlParams.get('reset_token');
+
+        if (resetToken) {
+            loginForm.style.display = 'none';
+            resetForm.style.display = 'flex';
+        }
+
+        function showForgotForm() {
+            loginForm.style.display = 'none';
+            forgotForm.style.display = 'flex';
+            loginError.textContent = '';
+        }
+
+        function showLoginForm() {
+            forgotForm.style.display = 'none';
+            resetForm.style.display = 'none';
+            loginForm.style.display = 'flex';
+            loginError.textContent = '';
+            // Remove token from URL if they went back
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        // --- LOGIN FLOW ---
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            loginError.textContent = '';
+            setLoading(btn, true);
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+
+                if (res.ok && data.token) {
+                    localStorage.setItem('adminToken', data.token);
+                    window.location.href = '/admin/dashboard.html';
+                } else {
+                    loginError.textContent = data.error || 'Login failed. Please try again.';
+                }
+            } catch (err) {
+                loginError.textContent = 'Cannot connect to server. Is it running?';
+            } finally {
+                setLoading(btn, false);
+            }
+        });
+
+        // --- FORGOT PASSWORD FLOW ---
+        forgotForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('forgotBtn');
+            const msgEl = document.getElementById('forgotMessage');
+            msgEl.textContent = '';
+            msgEl.className = 'login-error';
+            setLoading(btn, true);
+
+            const email = document.getElementById('forgotEmail').value.trim();
+
+            try {
+                const res = await fetch('/api/auth/forgot-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    msgEl.style.color = 'var(--success)';
+                    msgEl.textContent = data.message || 'Check your email for the reset link.';
+                } else {
+                    msgEl.textContent = data.error || 'Request failed.';
+                }
+            } catch (err) {
+                msgEl.textContent = 'Cannot connect to server.';
+            } finally {
+                setLoading(btn, false);
+            }
+        });
+
+        // --- RESET PASSWORD FLOW ---
+        resetForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('resetBtn');
+            const msgEl = document.getElementById('resetMessage');
+            msgEl.textContent = '';
+            msgEl.style.color = 'var(--danger)';
+            setLoading(btn, true);
+
+            const newPassword = document.getElementById('resetPassword').value;
+            const confirmPassword = document.getElementById('resetConfirmPassword').value;
+
+            if (newPassword.length < 6) {
+                msgEl.textContent = 'Password must be at least 6 characters.';
+                setLoading(btn, false);
+                return;
+            }
+            if (newPassword !== confirmPassword) {
+                msgEl.textContent = 'Passwords do not match.';
+                setLoading(btn, false);
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/auth/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: resetToken, newPassword })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    msgEl.style.color = 'var(--success)';
+                    msgEl.textContent = 'Password reset successfully! Redirecting...';
+                    setTimeout(() => {
+                        window.location.href = '/admin/login.html';
+                    }, 2000);
+                } else {
+                    msgEl.textContent = data.error || 'Reset failed.';
+                }
+            } catch (err) {
+                msgEl.textContent = 'Cannot connect to server.';
+            } finally {
+                if (!msgEl.textContent.includes('Redirecting')) {
+                    setLoading(btn, false);
+                }
+            }
+        });
+
+        function setLoading(btn, isLoading) {
+            btn.disabled = isLoading;
+            btn.querySelector('.btn-text').style.display = isLoading ? 'none' : 'inline';
+            btn.querySelector('.btn-spinner').style.display = isLoading ? 'inline-flex' : 'none';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Rewire180</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="src/css/hero.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script defer src="src/js/navbar.js"></script>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <header class="main-navbar">
+        <div class="nav-container">
+
+            <a href="#home" class="nav-logo">
+                Rewire <span>180</span>
+            </a>
+
+            <!-- Desktop menu -->
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#skills">Skills</a>
+                <a href="#reviews-section-video">Reviews</a>
+                <a href="#method-pricing">Pricing</a>
+                <a href="support.html">Support</a>
+            </nav>
+
+            <!-- Hamburger -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home">Home</a>
+            <a href="#skills">Skills</a>
+            <a href="#reviews-section-video">Reviews</a>
+            <a href="#method-pricing">Pricing</a>
+            <a href="support.html">Support</a>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-section" id="home">
+        <div class="hero-inner">
+
+            <div class="hero-eyebrow" data-content-key="hero_eyebrow">
+                180 DAY TRANSFORMATION PROGRAM
+            </div>
+
+            <h1 class="hero-title" data-content-key="hero_title">
+                180 days to transform your body
+                and build the confidence that lasts.
+            </h1>
+
+            <p class="hero-subtitle" data-content-key="hero_subtitle">
+                In 180 days I help busy professionals build a strong body and
+                unshakeable confidence and mindset without sacrificing their time.
+            </p>
+
+            <!-- HERO VIDEO -->
+            <div class="hero-video">
+                <video autoplay muted playsinline loop controls preload="auto" id="hero-video-el">
+                    <source id="hero-video-source" src="" type="video/mp4" data-content-key="hero_video">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- CTA -->
+            <div class="hero-cta">
+                <a href="#vip-pricing" class="hero-btn" id="hero-cta-btn" data-content-key="hero_cta_link">Continue</a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="video-section-container">
+        <div class="eyebrows">MY SKILLS</div>
+        <div class="video-section" id="skills-cards-wrapper">
+
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <video autoplay muted playsinline loop controls preload="auto" style="width: 100%; height: auto;"
+                        id="skills-video-1">
+                        <source src="src/assets/videos/hero-video.mp4" type="video/mp4"
+                            data-content-key="skills_video_1">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p class="video-text" data-content-key="skills_text_1">
+                    Follow this step-by-step system to build a strong body and unstoppable confidence.
+                </p>
+                <a href="#vip-pricing" class="btn btn-primary" id="skills-btn-1" data-content-key="skills_btn_1">JOIN
+                    NOW</a>
+            </div>
+
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <video autoplay muted playsinline loop controls preload="auto" style="width: 100%; height: auto;"
+                        id="skills-video-2">
+                        <source src="src/assets/videos/hero-video.mp4" type="video/mp4"
+                            data-content-key="skills_video_2">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p class="video-text" data-content-key="skills_text_2">
+                    Learn how to stay consistent, disciplined, and mentally sharp for life.
+                </p>
+                <a href="#method-pricing" class="btn btn-primary" id="skills-btn-2" data-content-key="skills_btn_2">JOIN
+                    NOW</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- VIDEO REVIEWS -->
+    <section class="reviews-section" id="reviews-section-video">
+        <div class="reviews-container">
+
+            <div class="reviews-header">
+                <span class="eyebrow">OUR REVIEWS</span>
+                <h2>Take a look at what my clients are saying</h2>
+            </div>
+
+            <div class="reviews-grid video-reviews-swiper">
+                <div class="swiper-wrapper">
+
+                    <!-- REVIEW 1 -->
+                    <div class="swiper-slide review-stack">
+                        <div class="review-card text-card">
+                            <p data-content-key="review_v1_text">
+                                "I was burnt out and had failed at online coaching before, but James'
+                                course helped me get set up fast and sign my first four clients.
+                                Best investment I've made."
+                            </p>
+                        </div>
+                        <div class="review-card video-card">
+                            <video src="reviews/v1.mp4" controls preload="metadata" id="review-v1-video"
+                                data-content-key="review_v1_video"></video>
+                        </div>
+                    </div>
+
+                    <!-- REVIEW 2 -->
+                    <div class="swiper-slide review-stack">
+                        <div class="review-card text-card">
+                            <p data-content-key="review_v2_text">
+                                "Before joining, I was overwhelmed and my business was stuck.
+                                The mentorship gave me clarity, direction, and systems that
+                                helped my revenue grow massively."
+                            </p>
+                        </div>
+                        <div class="review-card video-card">
+                            <video src="reviews/v2.mp4" controls preload="metadata" id="review-v2-video"
+                                data-content-key="review_v2_video"></video>
+                        </div>
+                    </div>
+
+                    <!-- REVIEW 3 -->
+                    <div class="swiper-slide review-stack">
+                        <div class="review-card text-card">
+                            <p data-content-key="review_v3_text">
+                                "Joining the mentorship was one of the best decisions I made.
+                                My followers grew fast and my systems finally made sense."
+                            </p>
+                        </div>
+                        <div class="review-card video-card">
+                            <video src="reviews/v3.mp4" controls preload="metadata" id="review-v3-video"
+                                data-content-key="review_v3_video"></video>
+                        </div>
+                    </div>
+
+                    <!-- REVIEW 4 -->
+                    <div class="swiper-slide review-stack">
+                        <div class="review-card text-card">
+                            <p data-content-key="review_v4_text">
+                                "Clear steps, real systems, and real results.
+                                This program helped me stop guessing and start executing."
+                            </p>
+                        </div>
+                        <div class="review-card video-card">
+                            <video src="reviews/v4.mp4" controls preload="metadata" id="review-v4-video"
+                                data-content-key="review_v4_video"></video>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Swiper navigation & pagination styled like ts-controls -->
+                <div class="video-ts-controls">
+                    <button class="ts-btn video-swiper-prev">&#8592;</button>
+                    <div class="video-reviews-pagination"></div>
+                    <button class="ts-btn video-swiper-next">&#8594;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials-section" id="reviews-section">
+        <div class="reviews-ss-inner">
+
+            <div class="reviews-ss-header">
+                <div class="eyebrow">CLIENT TRANSFORMATIONS</div>
+                <h2>What My Clients Are Saying</h2>
+                <p class="ts-sub">Real stories from busy professionals who transformed their body and confidence.</p>
+            </div>
+
+            <div class="ts-slider-outer">
+                <div class="ts-track" id="tsTrack">
+
+                    <div class="ts-card">
+                        <div class="ts-badge">💼 Busy Professional</div>
+                        <div class="ts-quote">&ldquo;</div>
+                        <p class="ts-text">I used to skip the gym for weeks at a time. With this 180‑day plan I now
+                            train 4x a week, dropped 9kg, and actually enjoy the process.</p>
+                        <div class="ts-footer">
+                            <div class="ts-avatar" style="background:#3B82F6;">AS</div>
+                            <div>
+                                <div class="ts-name">Ahmed Shaikh</div>
+                                <div class="ts-meta">Tech consultant · London</div>
+                                <div class="ts-stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ts-card">
+                        <div class="ts-badge">🔥 Fat Loss</div>
+                        <div class="ts-quote">&ldquo;</div>
+                        <p class="ts-text">Diet plans always felt extreme before. This time my calories, steps and
+                            training were all tailored to my lifestyle. I lost 12kg without a crash diet.</p>
+                        <div class="ts-footer">
+                            <div class="ts-avatar" style="background:#EC4899;">PR</div>
+                            <div>
+                                <div class="ts-name">Priya R.</div>
+                                <div class="ts-meta">Marketing lead · Manchester</div>
+                                <div class="ts-stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ts-card">
+                        <div class="ts-badge">🏋️ Strength &amp; Muscle</div>
+                        <div class="ts-quote">&ldquo;</div>
+                        <p class="ts-text">I came in skinny with zero structure. Now I’m hitting PBs every month and
+                            actually understand what I’m doing in the gym instead of copying random workouts.</p>
+                        <div class="ts-footer">
+                            <div class="ts-avatar" style="background:#F59E0B;">MK</div>
+                            <div>
+                                <div class="ts-name">Mohammed Khan</div>
+                                <div class="ts-meta">Software engineer · Birmingham</div>
+                                <div class="ts-stars">★★★★☆</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ts-card">
+                        <div class="ts-badge">🧠 Confidence &amp; Mindset</div>
+                        <div class="ts-quote">&ldquo;</div>
+                        <p class="ts-text">This wasn’t just a training plan. My mindset and confidence changed
+                            completely. I’m sharper at work and more confident in my own skin.</p>
+                        <div class="ts-footer">
+                            <div class="ts-avatar" style="background:#8B5CF6;">SR</div>
+                            <div>
+                                <div class="ts-name">Sara R.</div>
+                                <div class="ts-meta">Finance · London</div>
+                                <div class="ts-stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ts-card">
+                        <div class="ts-badge">⌛ Time‑Poor Founder</div>
+                        <div class="ts-quote">&ldquo;</div>
+                        <p class="ts-text">I thought I was “too busy” to get in shape. We built a routine around my
+                            calls and travel. My energy is higher and my back pain is gone.</p>
+                        <div class="ts-footer">
+                            <div class="ts-avatar" style="background:#10B981;">NK</div>
+                            <div>
+                                <div class="ts-name">Nikhil K.</div>
+                                <div class="ts-meta">Startup founder · Dubai</div>
+                                <div class="ts-stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ts-card">
+                        <div class="ts-badge">📱 Online Coaching Skeptic</div>
+                        <div class="ts-quote">&ldquo;</div>
+                        <p class="ts-text">I had tried online coaching before and it flopped. This time the check‑ins,
+                            feedback videos and clear targets kept me on track. Best decision I’ve made for my body.</p>
+                        <div class="ts-footer">
+                            <div class="ts-avatar" style="background:#EF4444;">ST</div>
+                            <div>
+                                <div class="ts-name">Sameer T.</div>
+                                <div class="ts-meta">Sales · Leeds</div>
+                                <div class="ts-stars">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ts-controls">
+                <button class="ts-btn" id="tsPrev">&#8592;</button>
+                <div class="ts-dots" id="tsDots"></div>
+                <button class="ts-btn" id="tsNext">&#8594;</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRICING SECTIONS WRAPPER -->
+    <div class="pricing-sections-wrapper">
+        <div class="eyebrows">SUBSCRIPTION PLANS</div>
+
+        <div class="pricing-cards-container">
+            <!-- 180 METHOD -->
+            <section id="method-pricing" class="pricing-section method-pricing">
+                <div class="pricing-box">
+
+                    <h2 class="pricing-title" data-content-key="method_title">
+                        The <span>180</span> Method<span class="tm">™</span>
+                    </h2>
+                    <p class="pricing-subtitle" data-content-key="method_subtitle">PRIVATE COACHING</p>
+
+                    <div class="what-you-get">
+                        <h3>What You Get:</h3>
+                        <ul id="method-features-list" data-content-key="method_features">
+                            <li>Personalised weekly training</li>
+                            <li>Tailored nutrition updates</li>
+                            <li>Private coaching app access</li>
+                            <li>Weekly check-ins</li>
+                            <li>Daily accountability &amp; motivation</li>
+                            <li>Group video calls</li>
+                            <li>Mindset coaching &amp; confidence-building exercises</li>
+                            <li>Practical strategies to believe in yourself and take consistent action</li>
+                            <li>Train anywhere, anytime</li>
+                        </ul>
+                    </div>
+
+                    <div class="pricing-options">
+                        <div class="option">
+                            <h4>Option 1 – Monthly</h4>
+                            <p class="price" data-content-key="method_price_1">£1,000 <span>/ month</span></p>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="option">
+                            <h4>Option 2 – Paid in Full</h4>
+                            <p class="price" data-content-key="method_price_2">£6,000 <span>upfront</span></p>
+                        </div>
+                    </div>
+
+                    <a href="#" class="vip-btn" id="method-cta-btn" data-content-key="method_btn_link">Apply &amp;
+                        Enrol</a>
+
+                </div>
+            </section>
+
+            <!-- VIP -->
+            <section id="vip-pricing" class="pricing-section vip-pricing">
+                <div class="pricing-box">
+
+                    <h2 class="pricing-title" data-content-key="vip_title">
+                        <span>VIP</span> Private Coaching
+                    </h2>
+
+                    <p class="pricing-subtitle" data-content-key="vip_subtitle">IN PERSON</p>
+
+                    <p class="pricing-note" data-content-key="vip_note">Willing to relocate</p>
+
+                    <p class="pricing-description" data-content-key="vip_description">
+                        Fully immersive coaching for clients who want a total transformation
+                        in body, mind, and confidence. 2–4 week intensive.
+                        UK &amp; international. Includes training, nutrition, lifestyle,
+                        and mindset mastery.
+                    </p>
+
+                    <div class="price-block">
+                        <p><strong>UK:</strong> starting from <span data-content-key="vip_price_uk">£10,000</span></p>
+                        <p><strong>Abroad:</strong> starting from <span
+                                data-content-key="vip_price_abroad">£20,000</span></p>
+                    </div>
+
+                    <a href="#" class="vip-btn" id="vip-cta-btn" data-content-key="vip_btn_link">Request VIP
+                        Consideration</a>
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+    <!-- END PRICING SECTIONS WRAPPER -->
+
+    <footer class="site-footer">
+        <div class="footer-container">
+
+            <!-- LEFT -->
+            <div class="footer-left">
+                <div class="footer-logo">
+                    Rewire <span>180</span>
+                </div>
+
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/qf_fitness/" aria-label="Instagram"> <img
+                            src="src/assets/icons/instagram-social-media-network-communication-interaction-connection-svgrepo-com.svg"
+                            alt=""></a>
+                    <a href="#" aria-label="YouTube"><img src="src/assets/icons/youtube-color-svgrepo-com.svg"
+                            alt=""></a>
+                    <a href="#" aria-label="TikTok"><img src="src/assets/icons/tiktok-svgrepo-com.svg" alt=""></a>
+                </div>
+            </div>
+
+            <!-- CENTER -->
+            <div class="footer-center">
+                <a href="support.html">Support</a>
+                <a href="acceptable-use-policy.html">Acceptable Use Policy</a>
+                <a href="privacy-policy.html" class="active">Privacy Policy</a>
+                <a href="refund-policy.html">Refund Policy</a>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="footer-right">
+            </div>
+
+        </div>
+
+        <!-- BOTTOM -->
+        <div class="footer-bottom">
+            <span>MADE BY</span>
+            <strong><a href="https://www.instagram.com/thewasiim/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Open TheWasiim on Instagram">thewasiim</a></strong>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="src/js/scripts.js" defer></script>
+    <script src="src/js/navbar.js" defer></script>
+    <!-- Analytics Tracker -->
+    <script>
+        (function () {
+            try {
+                fetch('/api/analytics/track', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        page: window.location.pathname,
+                        referrer: document.referrer || ''
+                    })
+                }).catch(function () { });
+            } catch (e) { }
+        })();
+    </script>
+
+</body>
+
+</html>

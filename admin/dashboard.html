@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewire180 — Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- ─── TOAST CONTAINER ──────────────────────────────────────── -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ─── CHANGE PASSWORD MODAL ────────────────────────────────── -->
+    <div class="modal-overlay" id="changePwModal">
+        <div class="modal">
+            <h2>Change Password</h2>
+            <div class="fields-grid" style="grid-template-columns:1fr;">
+                <div class="field-group">
+                    <label class="field-label">Current Password</label>
+                    <input type="password" id="currentPw" placeholder="Current password">
+                </div>
+                <div class="field-group">
+                    <label class="field-label">New Password</label>
+                    <input type="password" id="newPw" placeholder="Min. 6 characters">
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Confirm Password</label>
+                    <input type="password" id="confirmPw" placeholder="Repeat password">
+                </div>
+            </div>
+            <div class="panel-actions">
+                <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="changePassword()">Update Password</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-wrapper">
+
+        <!-- ─── SIDEBAR ────────────────────────────────────────────── -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                Rewire <span>180</span>
+                <small>Admin Dashboard</small>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Dashboard</div>
+                <a href="#analytics" class="active" onclick="showSection('analytics', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                    </svg>
+                    Analytics
+                </a>
+                <div class="nav-section-title">Content</div>
+                <a href="#hero" onclick="showSection('hero', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M8 21h8M12 17v4" />
+                    </svg>
+                    Hero Section
+                </a>
+                <a href="#skills" onclick="showSection('skills', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <polygon points="23 7 16 12 23 17 23 7" />
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                    </svg>
+                    Skills Videos
+                </a>
+                <a href="#video-reviews" onclick="showSection('video-reviews', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                    Video Reviews
+                </a>
+
+                <a href="#testimonials" onclick="showSection('testimonials', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 20c0-3 3-6 8-6s8 3 8 6" />
+                    </svg>
+                    Testimonials
+                </a>
+                <div class="nav-section-title">Pricing</div>
+                <a href="#method-pricing" onclick="showSection('method-pricing', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <line x1="12" y1="1" x2="12" y2="23" />
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    180 Method
+                </a>
+                <a href="#vip-pricing" onclick="showSection('vip-pricing', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                    VIP Coaching
+                </a>
+                <div class="nav-section-title">Pages</div>
+                <a href="#support" onclick="showSection('support', this)">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                    Support Page
+                </a>
+                <div class="nav-section-title">Account</div>
+                <a href="#" onclick="openModal()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    Change Password
+                </a>
+                <a href="/" target="_blank">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    View Live Site
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- ─── MAIN CONTENT ─────────────────────────────────────── -->
+        <main class="main-content">
+
+            <div class="top-bar">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <button class="hamburger-admin" id="hamburgerAdmin" onclick="toggleSidebar()">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <line x1="3" y1="12" x2="21" y2="12" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <line x1="3" y1="18" x2="21" y2="18" />
+                        </svg>
+                    </button>
+                    <h1>Content Manager</h1>
+                </div>
+                <div class="top-bar-right">
+                    <div class="status-dot"></div>
+                    <span class="status-text">Connected</span>
+                </div>
+            </div>
+
+            <!-- ═══ ANALYTICS SECTION ═══════════════════════════════════ -->
+            <div class="section-panel" id="analytics">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon" style="background:rgba(34,197,94,0.15);color:var(--success);">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </div>
+                        Website Analytics
+                    </div>
+                    <svg class="panel-toggle open" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body open">
+
+                    <!-- Stat Cards -->
+                    <div class="analytics-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(108,99,255,0.15);color:var(--accent);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <div>
+                                <div class="stat-value" id="stat-total-views">—</div>
+                                <div class="stat-label">Total Views</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(34,197,94,0.15);color:var(--success);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div>
+                                <div class="stat-value" id="stat-unique-visitors">—</div>
+                                <div class="stat-label">Unique Visitors</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background:rgba(240,180,41,0.15);color:var(--gold);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <div>
+                                <div class="stat-value" id="stat-today-views">—</div>
+                                <div class="stat-label">Today's Views</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="analytics-charts-row">
+                        <!-- 7 Day Bar Chart -->
+                        <div class="analytics-chart-card">
+                            <h3 class="chart-title">Last 7 Days</h3>
+                            <div class="bar-chart" id="analytics-bar-chart"></div>
+                        </div>
+                        <!-- Device Breakdown -->
+                        <div class="analytics-chart-card analytics-chart-card-small">
+                            <h3 class="chart-title">Devices</h3>
+                            <div class="device-breakdown" id="analytics-devices"></div>
+                        </div>
+                    </div>
+
+                    <!-- Top Pages -->
+                    <div class="analytics-chart-card" style="margin-top:18px;">
+                        <h3 class="chart-title">Top Pages</h3>
+                        <div id="analytics-top-pages" class="top-pages-list"></div>
+                    </div>
+
+                    <!-- Recent Visits Table -->
+                    <div class="analytics-chart-card" style="margin-top:18px;">
+                        <h3 class="chart-title">Recent Visitors</h3>
+                        <div class="analytics-table-wrap">
+                            <table class="analytics-table" id="analytics-recent-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Page</th>
+                                        <th>Device</th>
+                                        <th>Browser</th>
+                                        <th>IP</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ═══ HERO SECTION ══════════════════════════════════════ -->
+            <div class="section-panel" id="hero">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <rect x="2" y="3" width="20" height="14" rx="2" />
+                                <path d="M8 21h8M12 17v4" />
+                            </svg>
+                        </div>
+                        Hero Section
+                    </div>
+                    <svg class="panel-toggle open" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body open">
+                    <div class="fields-grid">
+
+                        <div class="field-group field-full">
+                            <label class="field-label">Hero Video URL</label>
+                            <div style="display:flex;gap:8px;margin-bottom:8px;">
+                                <input type="text" id="hero_video" placeholder="https://res.cloudinary.com/.../video/upload/..." style="flex:1;">
+                                <button class="btn btn-primary" onclick="updateHeroVideoURL()" style="padding:8px 16px;white-space:nowrap;">Add/Update</button>
+                                <button class="btn btn-outline" onclick="deleteHeroVideoURL()" style="padding:8px 16px;white-space:nowrap;color:var(--danger);">Delete</button>
+                            </div>
+                            <p style="font-size:0.75rem;color:var(--text-muted);">Current URL: <span id="hero_video-current" style="color:var(--accent);word-break:break-all;">loading...</span></p>
+                        </div>
+
+                        <div class="field-group field-full">
+                            <label class="field-label">Hero Eyebrow Text</label>
+                            <input type="text" id="hero_eyebrow" placeholder="180 DAY TRANSFORMATION PROGRAM">
+                        </div>
+
+                        <div class="field-group field-full">
+                            <label class="field-label">Hero Title</label>
+                            <textarea id="hero_title" rows="2"
+                                placeholder="180 days to transform your body..."></textarea>
+                        </div>
+
+                        <div class="field-group field-full">
+                            <label class="field-label">Hero Subtitle</label>
+                            <textarea id="hero_subtitle" rows="3" placeholder="In 180 days..."></textarea>
+                        </div>
+
+                        <div class="field-group">
+                            <label class="field-label">Hero CTA Button Link</label>
+                            <input type="text" id="hero_cta_link" placeholder="#vip-pricing">
+                        </div>
+
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('hero')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Hero
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ SKILLS SECTION ════════════════════════════════════ -->
+            <div class="section-panel" id="skills">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <polygon points="23 7 16 12 23 17 23 7" />
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                            </svg>
+                        </div>
+                        Skills Videos
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <!-- Skills cards generated dynamically by JS -->
+                    <div id="skills-cards-container"></div>
+                    <div style="margin-top: 20px; margin-bottom: 20px;">
+                        <button class="btn btn-outline" id="addSkillCardBtn" onclick="addSkillCard()" style="display:none;">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add Skill Card
+                        </button>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSkillCards()">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Skills
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ VIDEO REVIEWS ══════════════════════════════════════ -->
+            <div class="section-panel" id="video-reviews">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </div>
+                        Video Reviews
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <!-- Reviews generated dynamically by JS -->
+                    <div id="video-reviews-container"></div>
+                    <div style="margin-top: 20px; margin-bottom: 20px;">
+                        <button class="btn btn-outline" onclick="addVideoReview()">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add New Video Review
+                        </button>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('video_reviews')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Video Reviews
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- ═══ TESTIMONIALS ════════════════════════════════════════ -->
+            <div class="section-panel" id="testimonials">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <circle cx="12" cy="8" r="4" />
+                                <path d="M4 20c0-3 3-6 8-6s8 3 8 6" />
+                            </svg>
+                        </div>
+                        Testimonials
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <div id="testimonials-container"></div>
+                    <div style="margin-top: 20px; margin-bottom: 20px;">
+                        <button class="btn btn-outline" onclick="addTestimonial()">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Add Testimonial
+                        </button>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveTestimonials()">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Testimonials
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ 180 METHOD PRICING ════════════════════════════════ -->
+            <div class="section-panel" id="method-pricing">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon" style="background:rgba(240,180,41,0.15);color:var(--gold);">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                        </div>
+                        The 180 Method™ Pricing
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <div class="fields-grid">
+                        <div class="field-group">
+                            <label class="field-label">Plan Title</label>
+                            <input type="text" id="method_title" placeholder="The 180™ Method">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Subtitle</label>
+                            <input type="text" id="method_subtitle" placeholder="PRIVATE COACHING">
+                        </div>
+                        <div class="field-group field-full">
+                            <label class="field-label">Features List <span
+                                    style="font-weight:400;text-transform:none;letter-spacing:0;">(one feature per
+                                    line)</span></label>
+                            <textarea id="method_features" rows="9"
+                                placeholder="Personalised weekly training&#10;Tailored nutrition updates&#10;..."></textarea>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Option 1 Price</label>
+                            <input type="text" id="method_price_1" placeholder="£1,000 / month">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Option 2 Price</label>
+                            <input type="text" id="method_price_2" placeholder="£6,000 upfront">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Button Link</label>
+                            <input type="text" id="method_btn_link" placeholder="https://...">
+                        </div>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('method_pricing')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save 180 Method Pricing
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ VIP PRICING ════════════════════════════════════════ -->
+            <div class="section-panel" id="vip-pricing">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon" style="background:rgba(240,180,41,0.15);color:var(--gold);">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                        </div>
+                        VIP Private Coaching Pricing
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <div class="fields-grid">
+                        <div class="field-group">
+                            <label class="field-label">Title</label>
+                            <input type="text" id="vip_title" placeholder="VIP Private Coaching">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Subtitle</label>
+                            <input type="text" id="vip_subtitle" placeholder="IN PERSON">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Note (e.g. Willing to relocate)</label>
+                            <input type="text" id="vip_note" placeholder="Willing to relocate">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Button Link</label>
+                            <input type="text" id="vip_btn_link" placeholder="https://...">
+                        </div>
+                        <div class="field-group field-full">
+                            <label class="field-label">Description</label>
+                            <textarea id="vip_description" rows="4"></textarea>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">UK Starting Price</label>
+                            <input type="text" id="vip_price_uk" placeholder="£10,000">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Abroad Starting Price</label>
+                            <input type="text" id="vip_price_abroad" placeholder="£20,000">
+                        </div>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('vip_pricing')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save VIP Pricing
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ SUPPORT PAGE ════════════════════════════════════════ -->
+            <div class="section-panel" id="support">
+                <div class="panel-header" onclick="togglePanel(this)">
+                    <div class="panel-title">
+                        <div class="panel-icon" style="background:rgba(56,189,248,0.15);color:#38BDF8;">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg>
+                        </div>
+                        Support Page Content
+                    </div>
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="panel-body">
+                    <div class="fields-grid">
+                        <div class="field-group">
+                            <label class="field-label">Support Email</label>
+                            <input type="email" id="support_email" placeholder="support@rewire180.com">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Phone Number</label>
+                            <input type="text" id="support_phone" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Response Time</label>
+                            <input type="text" id="support_response_time" placeholder="24-48 hours">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Working Hours</label>
+                            <input type="text" id="support_hours" placeholder="Monday - Friday, 9 AM - 6 PM GMT">
+                        </div>
+                        <div class="field-group field-full">
+                            <label class="field-label">Intro Text</label>
+                            <textarea id="support_intro" rows="3" placeholder="We're here to help! If you have questions..."></textarea>
+                        </div>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="saveSection('support')">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17 21 17 13 7 13 7 21" />
+                                <polyline points="7 3 7 8 15 8" />
+                            </svg>
+                            Save Support Page
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>
