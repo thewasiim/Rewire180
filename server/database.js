@@ -48,6 +48,7 @@ async function seedDatabase() {
     { key: 'hero_title', value: '180 days to transform your body and build the confidence that lasts.', type: 'text', label: 'Hero Title', section: 'hero' },
     { key: 'hero_subtitle', value: 'In 180 days I help busy professionals build a strong body and unshakeable confidence and mindset without sacrificing their time.', type: 'text', label: 'Hero Subtitle', section: 'hero' },
     { key: 'hero_cta_link', value: '#vip-pricing', type: 'text', label: 'Hero CTA Link', section: 'hero' },
+    { key: 'hero_video', value: 'src/assets/videos/hero-video.mp4', type: 'video', label: 'Hero Video URL', section: 'hero' },
 
     // Skills
     { key: 'skills_video_1', value: 'src/assets/videos/hero-video.mp4', type: 'video', label: 'Skills Video 1', section: 'skills' },

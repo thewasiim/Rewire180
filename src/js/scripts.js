@@ -79,7 +79,7 @@ function applyContent(data) {
 
         // ── TEXT/LINK elements ────────────────────────────────────────────────────
         const textEls = document.querySelectorAll(`[data-content-key="${key}"]`);
-        
+
         // Special: method_features — render as a list
         if (key === 'method_features') {
             const listEl = document.getElementById('method-features-list');

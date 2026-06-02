@@ -375,7 +375,6 @@ async function saveSection(section) {
     }
 }
 
-// ─── HERO VIDEO MANAGEMENT ───────────────────────────────────────────────────
 async function updateHeroVideoURL() {
     const videoURLInput = document.getElementById('hero_video');
     const videoURL = videoURLInput.value.trim();
@@ -399,14 +398,21 @@ async function updateHeroVideoURL() {
 
         const data = await res.json();
         if (data.success) {
+            if (!contentData.hero_video) {
+                contentData.hero_video = { value: '', type: 'video' };
+            }
             contentData.hero_video.value = videoURL;
             const currentEl = document.getElementById('hero_video-current');
-            if (currentEl) currentEl.textContent = videoURL;
+            if (currentEl) {
+                const filename = videoURL ? videoURL.split('/').pop() : 'Not set';
+                currentEl.textContent = filename;
+            }
             showToast('✅ Hero video URL updated!', 'success');
         } else {
             showToast(data.error || 'Update failed', 'error');
         }
     } catch (err) {
+        console.error('Update hero video error:', err);
         showToast('Cannot reach server. Check if it\'s running.', 'error');
     }
 }
@@ -428,7 +434,9 @@ async function deleteHeroVideoURL() {
 
         const data = await res.json();
         if (data.success) {
-            contentData.hero_video.value = '';
+            if (contentData.hero_video) {
+                contentData.hero_video.value = '';
+            }
             document.getElementById('hero_video').value = '';
             const currentEl = document.getElementById('hero_video-current');
             if (currentEl) currentEl.textContent = 'Not set';
@@ -437,6 +445,7 @@ async function deleteHeroVideoURL() {
             showToast(data.error || 'Delete failed', 'error');
         }
     } catch (err) {
+        console.error('Delete hero video error:', err);
         showToast('Cannot reach server. Check if it\'s running.', 'error');
     }
 }
