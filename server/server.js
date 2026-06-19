@@ -52,8 +52,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // ─── STATIC FILE SERVING ──────────────────────────────────────────────────────
 // Serve frontend assets in ALL environments (Netlify, Railway, Local)
-const projectRoot = path.join(__dirname, '..');
-app.use(express.static(projectRoot));
+const publicRoot = path.join(__dirname, '..', 'public');
+app.use(express.static(publicRoot));
 
 // ─── HEALTH CHECK ─────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {

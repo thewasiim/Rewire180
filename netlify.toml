@@ -1,5 +1,5 @@
 [build]
-  publish = "."
+  publish = "public"
 
 # Redirect all /api/* calls to Railway backend
 [[redirects]]

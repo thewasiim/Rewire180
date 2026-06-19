@@ -182,7 +182,11 @@
                     <div class="analytics-stats">
                         <div class="stat-card">
                             <div class="stat-icon" style="background:rgba(108,99,255,0.15);color:var(--accent);">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
                             </div>
                             <div>
                                 <div class="stat-value" id="stat-total-views">—</div>
@@ -191,7 +195,13 @@
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon" style="background:rgba(34,197,94,0.15);color:var(--success);">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
                             </div>
                             <div>
                                 <div class="stat-value" id="stat-unique-visitors">—</div>
@@ -200,7 +210,11 @@
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon" style="background:rgba(240,180,41,0.15);color:var(--gold);">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg>
                             </div>
                             <div>
                                 <div class="stat-value" id="stat-today-views">—</div>
@@ -275,11 +289,16 @@
                         <div class="field-group field-full">
                             <label class="field-label">Hero Video URL</label>
                             <div style="display:flex;gap:8px;margin-bottom:8px;">
-                                <input type="text" id="hero_video" placeholder="https://res.cloudinary.com/.../video/upload/..." style="flex:1;">
-                                <button class="btn btn-primary" onclick="updateHeroVideoURL()" style="padding:8px 16px;white-space:nowrap;">Add/Update</button>
-                                <button class="btn btn-outline" onclick="deleteHeroVideoURL()" style="padding:8px 16px;white-space:nowrap;color:var(--danger);">Delete</button>
+                                <input type="text" id="hero_video"
+                                    placeholder="https://res.cloudinary.com/.../video/upload/..." style="flex:1;">
+                                <button class="btn btn-primary" onclick="updateHeroVideoURL()"
+                                    style="padding:8px 16px;white-space:nowrap;">Add/Update</button>
+                                <button class="btn btn-outline" onclick="deleteHeroVideoURL()"
+                                    style="padding:8px 16px;white-space:nowrap;color:var(--danger);">Delete</button>
                             </div>
-                            <p style="font-size:0.75rem;color:var(--text-muted);">Current URL: <span id="hero_video-current" style="color:var(--accent);word-break:break-all;">loading...</span></p>
+                            <p style="font-size:0.75rem;color:var(--text-muted);">Current URL: <span
+                                    id="hero_video-current"
+                                    style="color:var(--accent);word-break:break-all;">loading...</span></p>
                         </div>
 
                         <div class="field-group field-full">
@@ -340,7 +359,8 @@
                     <!-- Skills cards generated dynamically by JS -->
                     <div id="skills-cards-container"></div>
                     <div style="margin-top: 20px; margin-bottom: 20px;">
-                        <button class="btn btn-outline" id="addSkillCardBtn" onclick="addSkillCard()" style="display:none;">
+                        <button class="btn btn-outline" id="addSkillCardBtn" onclick="addSkillCard()"
+                            style="display:none;">
                             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
                                 viewBox="0 0 24 24">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -422,8 +442,8 @@
                         </div>
                         Testimonials
                     </div>
-                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor"
-                        stroke-width="2" viewBox="0 0 24 24">
+                    <svg class="panel-toggle" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </div>
@@ -601,7 +621,7 @@
                     <div class="fields-grid">
                         <div class="field-group">
                             <label class="field-label">Support Email</label>
-                            <input type="email" id="support_email" placeholder="support@rewire180.com">
+                            <input type="email" id="support_email" placeholder="180rewire@gmail.com">
                         </div>
                         <div class="field-group">
                             <label class="field-label">Phone Number</label>
@@ -617,7 +637,8 @@
                         </div>
                         <div class="field-group field-full">
                             <label class="field-label">Intro Text</label>
-                            <textarea id="support_intro" rows="3" placeholder="We're here to help! If you have questions..."></textarea>
+                            <textarea id="support_intro" rows="3"
+                                placeholder="We're here to help! If you have questions..."></textarea>
                         </div>
                     </div>
                     <div class="panel-actions">

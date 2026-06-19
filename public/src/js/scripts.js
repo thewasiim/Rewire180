@@ -36,6 +36,8 @@ function applyContent(data) {
             // Direct video element (e.g. review videos that use src directly)
             if (textEl && textEl.tagName === 'VIDEO') {
                 textEl.src = value;
+                textEl.load();
+                textEl.play().catch(err => console.log('Autoplay prevented:', err));
                 continue;
             }
             // Source element inside a video
@@ -43,7 +45,10 @@ function applyContent(data) {
             if (srcEl) {
                 srcEl.src = value;
                 const videoEl = srcEl.closest('video');
-                if (videoEl) videoEl.load();
+                if (videoEl) {
+                    videoEl.load();
+                    videoEl.play().catch(err => console.log('Autoplay prevented:', err));
+                }
             }
             continue;
         }
@@ -132,7 +137,7 @@ function renderSkillsList(skillsArr) {
     wrapper.innerHTML = skillsArr.map((card, i) => `
         <div class="video-card"${skillsArr.length === 1 ? ' style="max-width: 600px; margin: 0 auto;"' : ''}>
             <div class="video-wrapper">
-                <video autoplay muted playsinline loop controls preload="auto" style="width: 100%; height: auto;">
+                <video autoplay muted playsinline loop controls preload="auto">
                     <source src="${escapeHtml(card.video)}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -205,7 +210,7 @@ function renderVideoReviewsList(videosArr) {
             <p>${escapeHtml(rev.text)}</p>
         </div>
         <div class="review-card video-card">
-            <video src="${escapeHtml(rev.video)}" controls preload="metadata"></video>
+            <video src="${escapeHtml(rev.video)}" autoplay muted playsinline loop controls preload="auto" style="width: 100%; height: auto;"></video>
         </div>
     </div>
   `).join('');

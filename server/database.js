@@ -115,7 +115,7 @@ async function seedDatabase() {
     { key: 'vip_btn_link', value: '#', type: 'text', label: 'VIP Button Link', section: 'vip_pricing' },
 
     // Support Page
-    { key: 'support_email', value: 'support@rewire180.com', type: 'text', label: 'Support Email', section: 'support' },
+    { key: 'support_email', value: '180rewire@gmail.com', type: 'text', label: 'Support Email', section: 'support' },
     { key: 'support_phone', value: '+91 98765 43210', type: 'text', label: 'Support Phone', section: 'support' },
     { key: 'support_response_time', value: '24-48 hours', type: 'text', label: 'Response Time', section: 'support' },
     { key: 'support_hours', value: 'Monday - Friday, 9 AM - 6 PM GMT', type: 'text', label: 'Working Hours', section: 'support' },
